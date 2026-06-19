@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}JenTalk{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="{{ url_for('main.home') }}">
+        <img src="{{ url_for('static', filename='img/brand2.png') }}"
+             alt="JenTalk Logo"
+             class="brand-logo">
+        <span class="jen">JEN</span>
+        <span class="talk">TALK</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="{{ url_for('main.home') }}#hero">首頁</a>
+        <a href="/courses/speaking" >課程內容</a>
+        <a href="{{ url_for('main.home') }}#plan">購買方案</a>
+        <a href="{{ url_for('main.instagram') }}">IG作品集</a>
+        <a href="{{ url_for('main.home') }}#faq">FAQ</a>
+        <a href="{{ url_for('main.home') }}#contact">聯絡方式</a>
+      </nav>
+
+      <div class="auth">
+        <a href="{{ url_for('auth.login') }}">登入</a>
+        <a class="btn" href="{{ url_for('auth.register') }}">註冊</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash">
+          {% for cat, msg in messages %}
+            <div class="flash-{{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">© {{ 2026 }} JenTalk</footer>
+</body>
+</html>

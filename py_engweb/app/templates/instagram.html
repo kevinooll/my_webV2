@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}IG作品集｜JenTalk English{% endblock %}
+
+{% block content %}
+
+<section class="ig-page-hero">
+  <span>INSTAGRAM PORTFOLIO</span>
+  <h1>JenTalk English 作品集</h1>
+  <p>
+    這裡整理了 JenTalk English 在 Instagram 上的英文學習內容，
+    包含口說練習、聽力測驗、英文填空、生活旅遊英文與學員回饋。
+    你可以依照自己的需求，快速找到適合的學習主題。
+  </p>
+</section>
+
+<section class="ig-story-section">
+  <div class="ig-story-head">
+    <h2>選擇你想練習的主題</h2>
+    <p>把 IG 上最受歡迎的英文練習整理成分類，讓學習內容更好找。</p>
+  </div>
+
+  <div class="ig-story-scroll">
+    {% for cat in categories %}
+    <a href="#{{ cat.id }}" class="ig-story-item">
+      <div class="ig-story-circle">
+        <span>{{ cat.icon }}</span>
+      </div>
+      <p>{{ cat.name }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="ig-featured-block" id="featured">
+  <div class="ig-category-title">
+    <span>FEATURED</span>
+    <h2>精選作品</h2>
+    <p>先從這些內容開始，快速了解 JenTalk English 的教學風格。</p>
+  </div>
+
+  <div class="ig-portfolio-grid">
+    {% for post in posts if post.category == "featured" %}
+    <a href="{{ post.url }}" target="_blank" class="ig-work-card">
+      <img src="{{ url_for('static', filename='img/ig/' ~ post.image) }}" alt="{{ post.title }}">
+      <div class="ig-work-info">
+        <span>{{ post.category_name }}</span>
+        <h3>{{ post.title }}</h3>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% for cat in categories %}
+  {% if cat.id != "featured" %}
+  <section class="ig-category-block" id="{{ cat.id }}">
+    <div class="ig-category-title">
+      <span>{{ cat.name }}</span>
+      <h2>{{ cat.icon }} {{ cat.name }}</h2>
+      <p>{{ cat.desc }}</p>
+    </div>
+
+    <div class="ig-portfolio-grid">
+      {% for post in posts if post.category == cat.id %}
+      <a href="{{ post.url }}" target="_blank" class="ig-work-card">
+        <img src="{{ url_for('static', filename='img/ig/' ~ post.image) }}" alt="{{ post.title }}">
+        <div class="ig-work-info">
+          <span>{{ post.category_name }}</span>
+          <h3>{{ post.title }}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+{% endfor %}
+
+<section class="ig-bottom-cta">
+  <div>
+    <span>READY TO SPEAK?</span>
+    <h2>想知道自己適合哪一種英文口說課？</h2>
+    <p>
+      先做免費英文程度測驗，找到目前階段，再安排最適合你的老師與課程方向。
+    </p>
+    <div class="ig-bottom-actions">
+      <a href="{{ url_for('booking.trial_form') }}" class="primary-cta">預約一對一試聽</a>
+<!--      <a href="#" class="primary-cta">預約一對一試聽</a>-->
+      <a href="{{ url_for('main.home') }}" class="secondary-cta">回到首頁</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero-section">
+  <div class="container">
+    <h1 class="hero-title">英文口說與會話課程</h1>
+
+    <p class="hero-sub">
+      在真實情境裡練出會說的英文
+    </p>
+
+    <div class="hero-btns">
+<!--      <a href="{{ url_for('booking.trial_booking') }}" class="btn-primary">-->
+      <a href="{{ url_for('booking.trial_submit') }}" class="btn-primary">
+        免費預約體驗
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="course-page">
+
+  <!-- HERO -->
+  <section class="course-hero">
+    <div class="container course-hero-grid">
+
+      <!-- Left big card -->
+      <div class="hero-card hero-card--main">
+        <div class="hero-badge">🗣️ 英文口說與會話課程</div>
+
+        <h1 class="hero-title">
+          在真實情境裡<br>
+          練出會說的英文
+        </h1>
+
+        <p class="hero-desc">
+          一對一全英文互動 + 情境角色扮演，從「聽得懂但說不出」到「自然表達、敢開口」。
+          每堂課都有即時修正與課後精華筆記，讓你每週都看得到進步。
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#scenarios">查看情境課程內容</a>
+          <a class="btn btn-ghost" href="#plans">看課程內容</a>
+        </div>
+
+        <div class="hero-pills">
+          <span class="pill">✅ 外師一對一</span>
+          <span class="pill">✅ 100+ 情境主題</span>
+          <span class="pill">✅ 即時回饋修正</span>
+          <span class="pill">✅ 課後精華筆記</span>
+        </div>
+
+        <div class="hero-strip">
+          <div class="hero-strip-left">
+            <b>購買 100 堂課程，免費送你 15 堂</b>
+            <span></span>
+          </div>
+          <div class="hero-strip-right"></div>
+        </div>
+      </div>
+
+      <!-- Right side stacked cards -->
+      <div class="hero-side">
+        <div class="hero-card hero-card--mini">
+          <div class="mini-title">🎯 適合誰？</div>
+          <div class="mini-text">想練口說、旅遊/職場要用到、聽懂但不敢講、想把英文變成本能反應的人。</div>
+        </div>
+
+        <div class="hero-card hero-card--mini">
+          <div class="mini-title">🧩 怎麼上課？</div>
+          <div class="mini-text">選主題 → 角色扮演 → 延伸問答 → 即時修正 → 課後筆記，循環累積語感與反應力。</div>
+        </div>
+
+        <div class="hero-card hero-card--mini">
+          <div class="mini-title">📈 學習目標</div>
+          <div class="mini-text">更自然的表達方式、更準的發音與用字、更多能直接套用在生活/工作上的句型與話題庫。</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section class="level-section" id="levels">
+  <div class="container">
+
+    <!-- 標題 -->
+    <div class="section-head text-center">
+      <h2 class="section-title">找到最適合你的英文程度階段</h2>
+      <p class="section-sub">
+        不確定從哪開始？選擇你的情境，我幫你找到最適合的英文練習方式。
+      </p>
+    </div>
+
+    <!-- 滑動區 -->
+    <div class="level-scroll-wrap">
+
+      <button class="scroll-arrow left" id="levelLeft" type="button" aria-label="向左滑動">
+        ‹
+      </button>
+
+      <div class="level-scroll" id="levelScroll">
+
+        <!-- 入門 -->
+        <article class="level-card level-beginner">
+          <div class="level-header">入門者</div>
+          <div class="level-body">
+            <h3>適合的情境</h3>
+            <ul>
+              <li>自我介紹</li>
+              <li>餐廳點餐</li>
+              <li>問路</li>
+              <li>買東西</li>
+              <li>打 Uber</li>
+            </ul>
+
+            <h3>學習目標</h3>
+            <p>處理單一、簡單任務，敢開口完成基本互動。</p>
+          </div>
+        </article>
+
+        <!-- 生活探索 -->
+        <article class="level-card level-explore">
+          <div class="level-header">生活探索</div>
+          <div class="level-body">
+            <h3>適合的情境</h3>
+            <ul>
+              <li>飯店 check-in＋閒聊</li>
+              <li>咖啡廳客製化點餐</li>
+              <li>旅遊諮詢櫃台</li>
+              <li>逛街聊天</li>
+            </ul>
+
+            <h3>學習目標</h3>
+            <p>完成任務 + small talk，開始把英文帶進真實生活。</p>
+          </div>
+        </article>
+
+        <!-- 旅行者 -->
+        <article class="level-card level-traveler">
+          <div class="level-header">旅行者</div>
+          <div class="level-body">
+            <h3>適合的情境</h3>
+            <ul>
+              <li>航班取消</li>
+              <li>客訴</li>
+              <li>退款</li>
+              <li>物品遺失</li>
+              <li>訂位出錯</li>
+            </ul>
+
+            <h3>學習目標</h3>
+            <p>描述事情經過、表達情緒、解釋問題並尋求解決方式。</p>
+          </div>
+        </article>
+
+        <!-- 社交 -->
+        <article class="level-card level-social">
+          <div class="level-header">社交表達者</div>
+          <div class="level-body">
+            <h3>適合的情境</h3>
+            <ul>
+              <li>聚會聊天</li>
+              <li>討論新聞</li>
+              <li>分享旅行故事</li>
+              <li>聊簡單議題</li>
+            </ul>
+
+            <h3>學習目標</h3>
+            <p>敘述自我觀點、建立個人特色，並建立社交關係。</p>
+          </div>
+        </article>
+
+        <!-- 職場 -->
+        <article class="level-card level-business">
+          <div class="level-header">職場溝通者</div>
+          <div class="level-body">
+            <h3>適合的情境</h3>
+            <ul>
+              <li>商業英文</li>
+              <li>面試</li>
+              <li>開會</li>
+              <li>簡報</li>
+              <li>專案討論</li>
+            </ul>
+
+            <h3>學習目標</h3>
+            <p>更有邏輯地表達句子，並能連續說話 3–5 分鐘。</p>
+          </div>
+        </article>
+
+      </div>
+
+      <button class="scroll-arrow right" id="levelRight" type="button" aria-label="向右滑動">
+        ›
+      </button>
+
+    </div>
+
+  </div>
+</section>
+
+  <!-- SCENARIOS -->
+  <section class="scenario-section" id="scenarios">
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">▼ 課程模擬真實情境</h2>
+          <p class="section-sub">課堂模擬真實交流場景，學生可依需求選擇主題，學會在不同情境自然表達。</p>
+        </div>
+        <a class="btn btn-primary btn-small" href="#trial">立即預約體驗 →</a>
+      </div>
+
+      <div class="scenario-grid">
+        <!-- 1 -->
+        <article class="scenario-card">
+          <div class="scenario-top">
+            <span class="scenario-chip">🏙 生活與環境</span>
+            <span class="scenario-level">適合：初/中/高</span>
+          </div>
+          <h3 class="scenario-title">日常聊天不冷場</h3>
+          <p class="scenario-desc">從自我介紹到社交破冰、居住城市介紹，用「說得出口」的方式累積話題庫。</p>
+          <ul class="scenario-list">
+            <li>自我介紹、家人、興趣</li>
+            <li>天氣、日常習慣、社交聊天</li>
+            <li>問路、交通、購物</li>
+          </ul>
+          <div class="scenario-goal">👉 目標：自然表達、不再詞窮</div>
+        </article>
+
+        <!-- 2 -->
+        <article class="scenario-card">
+          <div class="scenario-top">
+            <span class="scenario-chip">✈️ 旅遊情境</span>
+            <span class="scenario-level">適合：初/中</span>
+          </div>
+          <h3 class="scenario-title">出國不用再靠翻譯</h3>
+          <p class="scenario-desc">把機場、飯店、餐廳、迷路求助等高頻情境，直接練到變成本能反應。</p>
+          <ul class="scenario-list">
+            <li>機場 check-in / 海關</li>
+            <li>飯店入住、客訴、延遲</li>
+            <li>餐廳點餐、特殊需求</li>
+          </ul>
+          <div class="scenario-goal">👉 目標：旅遊英文能立即上場</div>
+        </article>
+
+        <!-- 3 -->
+        <article class="scenario-card">
+          <div class="scenario-top">
+            <span class="scenario-chip">🎬 看電影學英文</span>
+            <span class="scenario-level">適合：中/高</span>
+          </div>
+          <h3 class="scenario-title">練語氣、練反應、練道地</h3>
+          <p class="scenario-desc">選片段 → 模仿 → 角色扮演 → 延伸問答，把俚語與自然語感真的用出來。</p>
+          <ul class="scenario-list">
+            <li>電影片段對話重現</li>
+            <li>道地用語與俚語</li>
+            <li>情緒語氣與連音</li>
+          </ul>
+          <div class="scenario-goal">👉 目標：聽得懂也說得自然</div>
+        </article>
+
+        <!-- 4 -->
+        <article class="scenario-card">
+          <div class="scenario-top">
+            <span class="scenario-chip">🎵 英文歌曲 & 文化</span>
+            <span class="scenario-level">適合：中</span>
+          </div>
+          <h3 class="scenario-title">用興趣把英文學進去</h3>
+          <p class="scenario-desc">透過歌詞與文化主題討論，練口語表達、發音節奏，順便建立跨文化理解。</p>
+          <ul class="scenario-list">
+            <li>歌詞口語化表達</li>
+            <li>發音、重音、節奏</li>
+            <li>文化背景與觀點交流</li>
+          </ul>
+          <div class="scenario-goal">👉 目標：說得出，也懂文化脈絡</div>
+        </article>
+
+        <!-- 5 -->
+        <article class="scenario-card">
+          <div class="scenario-top">
+            <span class="scenario-chip">🏃‍♂️ 興趣與休閒</span>
+            <span class="scenario-level">適合：初/中</span>
+          </div>
+          <h3 class="scenario-title">聊日常，英文才會變成生活</h3>
+          <p class="scenario-desc">從運動、週末活動到朋友聚會，把最常用的日常話題練熟，開口更有自信。</p>
+          <ul class="scenario-list">
+            <li>運動健身、飲食習慣</li>
+            <li>假日活動、興趣分享</li>
+            <li>朋友聚會、聊天延伸</li>
+          </ul>
+          <div class="scenario-goal">👉 目標：聊天能延續、越講越順</div>
+        </article>
+
+        <!-- 6 -->
+        <article class="scenario-card">
+          <div class="scenario-top">
+            <span class="scenario-chip">💼 職場與商務</span>
+            <span class="scenario-level">適合：中/高</span>
+          </div>
+          <h3 class="scenario-title">職場英文說得有邏輯</h3>
+          <p class="scenario-desc">把面試、會議、簡報、客戶溝通這些高壓場景提前練過，你就不會卡住。</p>
+          <ul class="scenario-list">
+            <li>面試自介、回答策略</li>
+            <li>會議表達、提問、澄清</li>
+            <li>簡報與客戶溝通</li>
+          </ul>
+          <div class="scenario-goal">👉 目標：在工作場合也敢講英文</div>
+        </article>
+      </div>
+
+      <!-- Bottom CTA bar -->
+      <div class="bottom-cta" id="trial">
+        <div class="bottom-cta-left">
+          <b>想先體驗一堂看看？</b>
+          <span>免費試上｜依你的需求挑情境主題，直接開始口說練習。</span>
+        </div>
+        <div class="bottom-cta-right">
+          <a class="btn btn-ghost" href="#plans">看方案</a>
+
+          {# 這裡用你目前存在的 endpoint：booking.trial_submit #}
+          <a class="btn btn-primary" href="{{ url_for('booking.trial_submit') }}">免費預約體驗</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Placeholder for plans (optional) -->
+  <section id="plans" class="plans-placeholder">
+    <div class="container">
+      <h2 class="section-title">課程內容</h2>
+      <p class="section-sub">（此段可接你原本的 Starter / Pro / VIP 方案卡片）</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const scrollBox = document.getElementById("levelScroll");
+  const leftBtn = document.getElementById("levelLeft");
+  const rightBtn = document.getElementById("levelRight");
+
+  if (!scrollBox || !leftBtn || !rightBtn) return;
+
+  function getScrollAmount() {
+    const card = scrollBox.querySelector(".level-card");
+    if (!card) return 400;
+
+    const cardWidth = card.getBoundingClientRect().width;
+    const styles = window.getComputedStyle(scrollBox);
+    const gap = parseFloat(styles.columnGap || styles.gap || 22);
+    return cardWidth + gap;
+  }
+
+  function updateArrows() {
+    const maxScrollLeft = scrollBox.scrollWidth - scrollBox.clientWidth;
+    leftBtn.disabled = scrollBox.scrollLeft <= 5;
+    rightBtn.disabled = scrollBox.scrollLeft >= maxScrollLeft - 5;
+  }
+
+  leftBtn.addEventListener("click", function () {
+    scrollBox.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+  });
+
+  rightBtn.addEventListener("click", function () {
+    scrollBox.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+  });
+
+  scrollBox.addEventListener("scroll", updateArrows);
+  window.addEventListener("resize", updateArrows);
+
+  updateArrows();
+});
+</script>
+{% endblock %}
+
+<!--<section class="scenario-section">-->
+<!--  <div class="container">-->
+<!--    <h2 class="section-title">課程模擬真實情境</h2>-->
+<!--    <p class="section-desc">-->
+<!--      課堂模擬真實交流場景，學生可依需求選擇主題，-->
+<!--      學會在不同情境自然表達。-->
+<!--    </p>-->
+
+<!--    <div class="scenario-grid">-->
+
+<!--      <div class="scenario-card">-->
+<!--        <h3>生活與環境</h3>-->
+<!--        <ul>-->
+<!--          <li>自我介紹與社交聊天</li>-->
+<!--          <li>問路、購物、交通</li>-->
+<!--          <li>城市與文化介紹</li>-->
+<!--        </ul>-->
+<!--      </div>-->
+
+<!--      <div class="scenario-card">-->
+<!--        <h3>旅遊情境</h3>-->
+<!--        <ul>-->
+<!--          <li>機場 check-in / 海關</li>-->
+<!--          <li>飯店入住與客訴</li>-->
+<!--          <li>餐廳點餐</li>-->
+<!--        </ul>-->
+<!--      </div>-->
+
+<!--      <div class="scenario-card">-->
+<!--        <h3>看電影學英文</h3>-->
+<!--        <ul>-->
+<!--          <li>角色扮演</li>-->
+<!--          <li>俚語學習</li>-->
+<!--          <li>語氣訓練</li>-->
+<!--        </ul>-->
+<!--      </div>-->
+
+<!--      <div class="scenario-card">-->
+<!--        <h3>職場與商務</h3>-->
+<!--        <ul>-->
+<!--          <li>面試模擬</li>-->
+<!--          <li>會議表達</li>-->
+<!--          <li>簡報練習</li>-->
+<!--        </ul>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->

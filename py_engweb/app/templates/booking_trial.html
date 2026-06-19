@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}預約試聽｜JenTalk{% endblock %}
+{% block content %}
+<h2>預約試聽</h2>
+<form method="post">
+  <label>姓名*<input name="name" required></label>
+  <label>Email*<input name="email" type="email" required></label>
+  <label>LINE ID<input name="line_id"></label>
+  <label>學習目標*
+    <select name="goal" required>
+      <option>旅遊口說</option><option>職場口說</option><option>面試英文</option><option>基礎會話</option>
+    </select>
+  </label>
+  <label>目前程度*
+    <select name="level" required>
+      <option>零基礎</option><option>初階</option><option>中階</option><option>中高階</option>
+    </select>
+  </label>
+  <label>偏好上課時間*<input name="preferred_time" required placeholder="例：平日 19:00-21:00"></label>
+  <label>備註<textarea name="message"></textarea></label>
+  <button type="submit">送出</button>
+</form>
+{% endblock %}

@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% block title %}JenTalk｜一對一口說英文{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-media">
+    <img src="{{ url_for('static', filename='img/eng_pic.png') }}" alt="JenTalk Hero">
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>IMPROVE<br>YOUR ENGLISH</h1>
+      <p class="sub">Anytime, Anywhere</p>
+
+      <div class="hero-actions">
+        <a class="btn-primary" href="{{ url_for('booking.trial_form') }}">立即索取免費課程</a>
+        <a class="btn-ghost" href="{{ url_for('main.pricing') }}">查看課程內容</a>
+      </div>
+
+      <div class="hero-bullets">
+        <span>外師一對一口說</span>
+        <span>糾音＋回饋</span>
+        <span>可試聽再決定</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promo">
+   購買 100 堂課程，免費送你 15 堂
+</section>
+
+<div class="quick-nav">
+  <a href="/courses/speaking" class="quick-btn">課程內容</a>
+  <a href="#plan" class="quick-btn">學習方案</a>
+  <a href="#level-test" class="quick-btn">程度測試</a>
+  <a href="#reviews" class="quick-btn">學員反饋</a>
+  <a href="#booking" class="quick-btn highlight">預約試聽</a>
+  <a href="#contact" class="quick-btn">聯絡方式</a>
+</div>
+
+<!--<section id="course" class="section">-->
+<!--  <h2>為什麼選我們？</h2>-->
+<!--  <div class="cards">-->
+<!--    <div class="card">-->
+<!--      <div class="k">一對一口說｜不尷尬</div>-->
+<!--      <div class="d">老師依你的程度帶你講出來，不是背完才敢開口。</div>-->
+<!--    </div>-->
+<!--    <div class="card">-->
+<!--      <div class="k">老師嚴選｜教法有系統</div>-->
+<!--      <div class="d">每堂課有目標、有糾音、有回饋，讓你真的進步。</div>-->
+<!--    </div>-->
+<!--    <div class="card">-->
+<!--      <div class="k">教材客製｜你需要的才學</div>-->
+<!--      <div class="d">旅遊/職場/面試/會議口說，依你需求安排。</div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<section class="why-section">
+  <h2>為什麼選我們？</h2>
+
+  <div class="why-cards">
+    <div class="why-card">
+      <h3>專業指導英文口說</h3>
+      <p>零基礎不用怕，老師會一步一步帶你慢慢說。</p>
+    </div>
+
+    <div class="why-card">
+      <h3>時間彈性排課方便</h3>
+      <p>專為上班族設計，下班後也能輕鬆安排課程。</p>
+    </div>
+
+    <div class="why-card">
+      <h3>教材客製化|你需要的才學</h3>
+      <p>職場/旅遊/面試/會議口說</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="test-banner" id="level-test">
+  <h2>立即測驗你的英文程度</h2>
+  <a href="#test" class="test-btn">開始測驗</a>
+</section>
+
+<div class="test-cards">
+
+  <div class="test-card-item">
+    <div class="test-card">
+      <h3>快速判斷程度</h3>
+      <p>從入門開口、生活探索、旅行溝通，到社交表達與職場英文，快速找到目前階段。</p>
+    </div>
+    <img src="{{ url_for('static', filename='img/test-1.png') }}" alt="快速判斷程度">
+  </div>
+
+  <div class="test-card-item">
+    <div class="test-card">
+      <h3>對應真實情境</h3>
+      <p>依你的程度，模擬適合的場景，例如點餐、問路、旅遊問題處理、聊天與工作溝通。</p>
+    </div>
+    <img src="{{ url_for('static', filename='img/test-2.png') }}" alt="對應真實情境">
+  </div>
+
+  <div class="test-card-item">
+    <div class="test-card">
+      <h3>得到下一步建議</h3>
+      <p>測完後可直接知道建議課程方向，幫你更快選擇適合的老師與方案。</p>
+    </div>
+    <img src="{{ url_for('static', filename='img/test-3.png') }}" alt="得到下一步建議">
+  </div>
+
+</div>
+
+<section class="reviews-section" id="reviews">
+  <div class="section-head">
+    <span class="section-label">STUDENT REVIEWS</span>
+    <h2>學員怎麼說</h2>
+    <p>每一位學員的起點不同，但都在課程中找到更敢開口的方法。</p>
+  </div>
+
+  <div class="review-grid">
+
+    <article class="review-card">
+      <div class="review-top">
+        <div>
+          <h3>任任</h3>
+          <span>35歲・科技業主管</span>
+        </div>
+        <strong>Teacher Eunice</strong>
+      </div>
+
+      <p>
+        我本身是理工背景，技術和管理都算熟悉，但英文一直是升遷後最明顯的短板。
+        跟 Eunice 上課約 4 個月後，最大的改變是開會時不再只聽不說，
+        現在能用比較簡單但清楚的句子回應國外同事，也能準備基本報告內容。
+        Eunice 最吸引我的地方是她很會把複雜想法拆成可以直接開口的英文，
+        糾正也很精準但不會讓人緊張。推薦給專業能力夠、但英文表達卡住的上班族。
+      </p>
+    </article>
+
+    <article class="review-card review-card-highlight">
+      <div class="review-top">
+        <div>
+          <h3>Lucas</h3>
+          <span>26歲・曾在澳洲打工</span>
+        </div>
+        <strong>Teacher Jen</strong>
+      </div>
+
+      <p>
+        我之前在澳洲打工過，很喜歡那邊的生活方式，所以一直希望未來能爭取工作簽再去闖一次。
+        跟 Jen 上課大約半年，目前主要用在面試準備、生活對話和工作情境溝通。
+        以前我常常只會用單字拼湊，講到一半就卡住；
+        現在比較能自然接話，也敢主動問問題。
+        Jen 的課很有活力，不會像傳統上課那麼有壓力，而且她很會鼓勵你多講。
+        推薦給想把英文變成出國機會的人。
+      </p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-top">
+        <div>
+          <h3>Turn</h3>
+          <span>30歲・傳產工程師</span>
+        </div>
+        <strong>Teacher Dana</strong>
+      </div>
+
+      <p>
+        我學英文不是為了考試，而是單純想培養興趣。
+        因為有旅美親戚常分享國外生活，讓我開始想聽懂更多文化和日常對話。
+        跟 Dana 上課約 5 個月後，現在能用英文聊旅遊、生活習慣和一些工作小事。
+        以前聽到英文會先緊張，現在比較願意慢慢表達。
+        Dana 最棒的是她很親切，會順著我的興趣延伸話題，讓上課像聊天一樣自然。
+        推薦給想輕鬆開始、不想被壓力嚇跑的人。
+      </p>
+    </article>
+
+  </div>
+</section>
+
+<section class="section faq">
+  <h2>常見問題</h2>
+  <details><summary>1.購買課程有使用期限嗎？</summary><p>A:不同課程方案採用不同請假次數制度</p></details>
+  <details><summary>2.購買課程付款方式？</summary><p>A:僅限匯款</p></details>
+  <details><summary>3.用什麼平台上課？</summary><p>A:使用Zoom軟體上課？</p></details>
+  <details><summary>4.如何預約試上？</summary><p>IG連結私訊小編立即安排試上</p></details>
+</section>
+
+
+<section id="booking" class="bottom-cta">
+  <div class="bottom-inner">
+    <div>
+      <h3>想在 30 天內明顯變敢講？</h3>
+      <p>先試聽一堂，讓老師幫你抓出最卡的口說點。</p>
+    </div>
+    <a class="btn-primary" href="{{ url_for('booking.trial_form') }}">預約試聽</a>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="section-head">
+    <h2>聯絡方式</h2>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="k">Instagram</div>
+      <div class="d">@jentalk.english</div>
+    </div>
+    <div class="card">
+      <div class="k">LINE</div>
+      <div class="d">@jentalk</div>
+    </div>
+    <div class="card">
+      <div class="k">Email</div>
+      <div class="d">hello@jentalk.com</div>
+    </div>
+  </div>
+</section>
+
+<section class="ig-mini-link">
+  <div class="ig-bubble ig-bubble-1"></div>
+  <div class="ig-bubble ig-bubble-2"></div>
+  <div class="ig-bubble ig-bubble-3"></div>
+
+  <span class="ig-mini-tag">INSTAGRAM PORTFOLIO</span>
+  <h2>想看更多學習內容？</h2>
+  <p>前往 IG 作品集，看看 JenTalk English 的短影音、學習貼文與課程活動。</p>
+  <a href="{{ url_for('main.instagram') }}">查看 IG 作品集</a>
+</section>
+{% endblock %}
