@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}JenTalk｜一對一口說英文{% endblock %}
 
+{% block body_class %}home-page{% endblock %}
 {% block content %}
 <section class="hero">
   <div class="hero-media">
@@ -9,7 +10,7 @@
 
   <div class="hero-inner">
     <div class="hero-text">
-      <h1>IMPROVE<br>YOUR ENGLISH</h1>
+      <h1><span class="hero-title-line">IMPROVE</span><br><span class="hero-title-line">YOUR ENGLISH</span></h1>
       <p class="sub">Anytime, Anywhere</p>
 
       <div class="hero-actions">
@@ -61,17 +62,17 @@
   <h2>為什麼選我們？</h2>
 
   <div class="why-cards">
-    <div class="why-card">
+    <div class="why-card" data-motion-reveal>
       <h3>專業指導英文口說</h3>
       <p>零基礎不用怕，老師會一步一步帶你慢慢說。</p>
     </div>
 
-    <div class="why-card">
+    <div class="why-card" data-motion-reveal>
       <h3>時間彈性排課方便</h3>
       <p>專為上班族設計，下班後也能輕鬆安排課程。</p>
     </div>
 
-    <div class="why-card">
+    <div class="why-card" data-motion-reveal>
       <h3>教材客製化|你需要的才學</h3>
       <p>職場/旅遊/面試/會議口說</p>
     </div>
@@ -121,7 +122,7 @@
 
   <div class="review-grid">
 
-    <article class="review-card">
+    <article class="review-card" data-motion-reveal>
       <div class="review-top">
         <div>
           <h3>任任</h3>
@@ -139,7 +140,7 @@
       </p>
     </article>
 
-    <article class="review-card review-card-highlight">
+    <article class="review-card review-card-highlight" data-motion-reveal>
       <div class="review-top">
         <div>
           <h3>Lucas</h3>
@@ -158,7 +159,7 @@
       </p>
     </article>
 
-    <article class="review-card">
+    <article class="review-card" data-motion-reveal>
       <div class="review-top">
         <div>
           <h3>Turn</h3>

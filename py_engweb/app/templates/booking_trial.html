@@ -2,7 +2,7 @@
 {% block title %}預約試聽｜JenTalk{% endblock %}
 {% block content %}
 <h2>預約試聽</h2>
-<form method="post">
+<form method="post" data-motion-submit>
   <label>姓名*<input name="name" required></label>
   <label>Email*<input name="email" type="email" required></label>
   <label>LINE ID<input name="line_id"></label>
@@ -19,5 +19,6 @@
   <label>偏好上課時間*<input name="preferred_time" required placeholder="例：平日 19:00-21:00"></label>
   <label>備註<textarea name="message"></textarea></label>
   <button type="submit">送出</button>
+  <p class="motion-form-status" role="status" data-motion-status></p>
 </form>
 {% endblock %}

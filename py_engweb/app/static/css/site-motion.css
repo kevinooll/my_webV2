@@ -1,0 +1,139 @@
+:root {
+  --motion-fast: 140ms;
+  --motion-normal: 220ms;
+  --motion-slow: 340ms;
+  --motion-stagger: 45ms;
+  --motion-distance: 10px;
+  --motion-out: cubic-bezier(.16, 1, .3, 1);
+  --motion-focus: #99501e;
+}
+
+:where(.nav, .site-nav, .home-page, .course-page, form, #classroom-quiz) :where(a, button, input, select, textarea, summary):focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--motion-focus);
+  outline-offset: 3px;
+}
+
+[data-motion-submit][data-motion-pending] :is(button[type="submit"], button:not([type])) {
+  opacity: .75;
+  cursor: progress;
+}
+
+.motion-form-status {
+  margin-block: .5rem 0;
+  color: #48566a;
+}
+
+.motion-form-status:empty { margin: 0; }
+
+.nav-menu a:hover,
+.mobile-more-menu a:hover,
+.site-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: .25em;
+}
+
+.classroom-quiz-choice:has(input:checked:not(:disabled)) {
+  outline: 2px solid var(--motion-focus);
+  outline-offset: -2px;
+}
+
+.motion-quiz-track {
+  height: 4px;
+  margin-block: .35rem .75rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e7e1da;
+}
+
+.motion-quiz-fill {
+  height: 100%;
+  background: var(--motion-focus);
+  transform: scaleX(var(--quiz-progress, 0));
+  transform-origin: left center;
+}
+
+@keyframes jt-rise {
+  from { opacity: .78; translate: 0 var(--motion-distance); }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes jt-pop {
+  0% { opacity: .8; translate: 0 var(--motion-distance); }
+  73% { opacity: 1; translate: 0 -2px; }
+  100% { opacity: 1; translate: 0 0; }
+}
+
+@keyframes jt-fade {
+  from { opacity: .8; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-revealed:not(:focus-within) {
+    animation: jt-pop var(--motion-slow) var(--motion-out) backwards;
+    animation-delay: calc(var(--motion-order, 0) * var(--motion-stagger));
+  }
+
+  .home-page :is(.hero-title-line, .cover-copy h1 > span) {
+    animation: jt-rise var(--motion-slow) var(--motion-out) backwards;
+  }
+
+  .home-page :is(.hero-title-line, .cover-copy h1 > span):nth-child(2) {
+    animation-delay: var(--motion-stagger);
+  }
+
+  .home-page .hero-title-line:nth-child(3) {
+    animation-delay: calc(2 * var(--motion-stagger));
+  }
+
+  .home-page :is(.hero-media > img, .home-cover > img, #hero .sub, .cover-copy .sub) {
+    animation: jt-fade var(--motion-slow) ease-out;
+  }
+
+  .classroom-quiz-form {
+    animation: jt-rise var(--motion-normal) var(--motion-out);
+  }
+
+  .motion-quiz-fill { transition: transform var(--motion-normal) var(--motion-out); }
+
+  .nav :where(a, summary),
+  :is(a.btn-primary, a.btn-light, a.btn, a.test-btn, button):not(:disabled),
+  :where(form) :is(input, select, textarea) {
+    transition: translate var(--motion-fast) var(--motion-out),
+                scale var(--motion-fast) var(--motion-out),
+                background-color var(--motion-fast) ease,
+                border-color var(--motion-fast) ease;
+  }
+
+  :is(a.btn-primary, a.btn-light, a.btn, a.test-btn, button):not(:disabled):active { scale: .98; }
+
+  @media (hover: hover) and (pointer: fine) {
+    :is(a.btn-primary, a.btn-light, a.btn, a.test-btn):hover { translate: 0 -2px; }
+    .course-page :is(.level-card, .scenario-card),
+    .home-page .student-review-item { transition: translate var(--motion-normal) var(--motion-out); }
+    .course-page :is(.level-card, .scenario-card):hover,
+    .home-page .student-review-item:hover { translate: 0 -3px; }
+  }
+
+  .faq details[open] > :not(summary),
+  .mobile-more[open] .mobile-more-menu,
+  .student-review-text.is-expanded,
+  :is([data-teacher-slide], [data-test-slide]):not([hidden]).motion-slide-enter {
+    animation: jt-fade var(--motion-normal) ease-out;
+  }
+}
+
+.motion-feedback,
+.flash,
+[role="alert"],
+.classroom-quiz-feedback,
+.motion-form-status:not(:empty) {
+  animation: jt-fade var(--motion-fast) ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .course-page * { scroll-behavior: auto !important; }
+  .home-page .why-jentalk-card .why-icon { animation: none !important; }
+}
