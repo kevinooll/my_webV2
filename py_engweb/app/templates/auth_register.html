@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>會員註冊｜JenTalk English</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #fff8f0; color: #14263f; font-family: system-ui, -apple-system, "Microsoft JhengHei", sans-serif; line-height: 1.6; }
+    main { width: min(100%, 460px); margin: 0 auto; padding: 48px 20px; }
+    .brand { color: #b64a00; font-size: 15px; font-weight: 800; letter-spacing: .08em; }
+    .card { margin-top: 20px; padding: 28px; background: #fff; border: 1px solid #eadfd4; border-radius: 20px; box-shadow: 0 12px 36px #18283f0a; }
+    h1 { margin: 0 0 8px; font-size: 28px; line-height: 1.3; }
+    .intro { margin: 0 0 24px; color: #59677a; }
+    label { display: block; margin-bottom: 6px; font-weight: 700; }
+    .field { margin-bottom: 18px; }
+    input { display: block; width: 100%; min-height: 48px; border: 1px solid #a5aeb9; border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 16px; background: #fff; color: #14263f; }
+    button { width: 100%; min-height: 48px; border: 0; border-radius: 10px; background: #c95000; color: #fff; font: inherit; font-weight: 800; cursor: pointer; }
+    button:hover { background: #a74100; }
+    :focus-visible { outline: 3px solid #1762a9; outline-offset: 3px; }
+    .notice { padding: 12px; border-radius: 8px; background: #fff2df; overflow-wrap: anywhere; }
+    .back { display: inline-block; margin-top: 20px; color: #244d78; text-underline-offset: 3px; }
+    @media (max-width: 360px) { main { padding: 32px 16px; } .card { padding: 22px 18px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">JENTALK ENGLISH</div>
+    <section class="card" aria-labelledby="login-title">
+      <h1 id="login-title">建立帳號</h1>
+      <p class="intro">建立你的 JenTalk English 學習帳號。</p>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+      <p class="notice" role="alert">{{ message }}</p>
+      {% endfor %}
+      <form method="post" data-motion-submit action="{{ url_for('auth.register_post') }}">
+        {% if csrf_token is defined %}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% endif %}
+        <div class="field">
+          <label for="email">電子信箱</label>
+          <input id="email" type="email" name="email" required autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="password">設定密碼</label>
+          <p id="password-help" class="intro" style="margin:0 0 8px;font-size:14px">請使用 12～256 個字元，避免與其他網站共用密碼。</p>
+          <input id="password" type="password" name="password" required autocomplete="new-password" minlength="12" maxlength="256" aria-describedby="password-help">
+        </div>
+        <button type="submit">建立帳號</button>
+        <p class="motion-form-status" role="status" data-motion-status></p>
+      </form>
+      <p class="intro" style="margin:20px 0 0">已有帳號？<a href="/auth/login">前往登入</a></p>
+    </section>
+    <a class="back" href="/">← 返回首頁</a>
+  </main>
+</body>
+</html>
