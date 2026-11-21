@@ -1,35 +1,2402 @@
 {% extends "base.html" %}
 {% block title %}JenTalk｜一對一口說英文{% endblock %}
 
-{% block body_class %}home-page{% endblock %}
+{% block extra_css %}
+<style>
+  .hero {
+    position: relative;
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    align-items: center;
+    gap: 44px;
+    max-width: 1120px;
+    min-height: 0;
+    margin: 22px auto 0;
+    padding: 54px 56px 64px;
+    background: linear-gradient(135deg, #fff8ef 0%, #ffffff 56%, #eef8ff 100%);
+    border-radius: 28px;
+    box-shadow: 0 18px 46px rgba(24, 35, 61, 0.08);
+    overflow: visible;
+    isolation: isolate;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    right: -120px;
+    top: -120px;
+    border-radius: 50%;
+    background: rgba(255, 121, 0, 0.1);
+    pointer-events: none;
+  }
+
+  .hero-media {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 2;
+    order: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-media::after {
+    content: "心得回饋送 $100 折價券";
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #fff;
+    color: #ff7900;
+    font-weight: 900;
+    box-shadow: 0 10px 24px rgba(24, 35, 61, 0.14);
+  }
+
+  .hero-media img {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 18px 38px rgba(24, 35, 61, 0.14);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 3;
+    order: 1;
+    width: 100%;
+  }
+
+  .hero-text {
+    max-width: 600px;
+    text-align: left !important;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    margin: 0 0 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #fff;
+    color: #ff7900;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: none;
+    box-shadow: 0 8px 18px rgba(255, 121, 0, 0.12);
+  }
+
+  .hero h1 {
+    margin: 0;
+    color: #18233d;
+    font-size: clamp(34px, 4.3vw, 56px);
+    line-height: 1.12;
+    letter-spacing: 0;
+    text-align: left !important;
+  }
+
+  .hero .sub {
+    max-width: 520px;
+    margin: 16px 0 0 !important;
+    color: #48536a;
+    font-size: 17px;
+    line-height: 1.75;
+    text-align: left !important;
+  }
+
+  .hero-trial-card,
+  .beginner-card,
+  .test-result-offer {
+    background: #fff7ec;
+    border: 2px solid #ff7900;
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(255, 121, 0, 0.14);
+  }
+
+  .hero-trial-card {
+    max-width: 500px;
+    margin-top: 22px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .offer-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ff7900;
+    color: #fff;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .hero-trial-card h2,
+  .beginner-card h2,
+  .test-result-offer h2 {
+    margin: 12px 0 8px;
+  }
+
+  .hero-trial-card h2 {
+    font-size: 22px;
+    color: #18233d;
+  }
+
+  .trial-price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 4px 0 14px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #222;
+  }
+
+  .trial-price strong {
+    color: #ff7900;
+    font-size: 44px;
+  }
+
+  .offer-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin: 0 0 20px;
+  }
+
+  .offer-step {
+    min-height: auto;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.76);
+    border: 1px solid rgba(255, 121, 0, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .offer-step b,
+  .offer-step span {
+    display: block;
+  }
+
+  .offer-step b {
+    min-width: 104px;
+    margin-bottom: 0;
+    color: #18233d;
+    font-size: 15px;
+  }
+
+  .offer-step span {
+    color: #596275;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .hero-trial-card .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 24px;
+    border-radius: 999px;
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+  .promo {
+    position: relative !important;
+    z-index: 1 !important;
+    top: auto !important;
+    transform: none !important;
+    clear: both;
+    max-width: 960px;
+    margin: 32px auto 0 !important;
+    padding: 14px 22px !important;
+    border-radius: 999px !important;
+    background: #fff7ec !important;
+    color: #18233d !important;
+    border: 1px solid rgba(255, 121, 0, 0.22);
+    box-shadow: none !important;
+    text-align: center;
+    font-weight: 800;
+  }
+
+  .quick-nav {
+    position: relative !important;
+    z-index: 1 !important;
+    top: auto !important;
+    transform: none !important;
+    clear: both;
+    margin-top: 20px !important;
+  }
+
+  .beginner-offer {
+    padding-top: 24px;
+  }
+
+  .beginner-card {
+    padding: 28px;
+  }
+
+  .offer-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 22px 0;
+  }
+
+  .offer-list div {
+    background: #fff;
+    border: 1px solid rgba(255, 121, 0, 0.24);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .offer-list strong,
+  .offer-list span {
+    display: block;
+  }
+
+  .offer-list strong {
+    margin-bottom: 8px;
+    color: #222;
+  }
+
+  .offer-list span {
+    color: #666;
+  }
+
+  .test-result-offer {
+    margin: 28px auto 0;
+    padding: 24px;
+  }
+
+  .faq-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .faq-category {
+    margin: 32px 0 14px;
+    color: #2f6b4f;
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .faq-category:first-of-type {
+    margin-top: 18px;
+  }
+
+  .faq details p + p {
+    margin-top: 8px;
+  }
+
+  .line-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #06c755;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+    .ig-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      min-height: auto;
+      margin-top: 12px;
+      padding: 28px 20px 34px;
+      border-radius: 20px;
+    }
+
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      right: -90px;
+      top: -90px;
+      border-radius: 50%;
+    }
+
+    .hero-media {
+      order: 2;
+    }
+
+    .hero-media img {
+      max-width: 100%;
+      max-height: none;
+    }
+
+    .hero-inner {
+      order: 1;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+    }
+
+    .hero .sub {
+      font-size: 16px;
+    }
+
+    .hero-trial-card,
+    .beginner-card,
+    .test-result-offer {
+      padding: 18px;
+    }
+
+    .offer-list {
+      grid-template-columns: 1fr;
+    }
+
+    .trial-price strong {
+      font-size: 30px;
+    }
+
+    .offer-steps {
+      grid-template-columns: 1fr;
+    }
+
+    .offer-step {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-media::after {
+      left: 12px;
+      bottom: 12px;
+      font-size: 13px;
+    }
+
+    .promo {
+      border-radius: 16px !important;
+      margin: 24px 12px 0 !important;
+    }
+  }
+
+  .home-page {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow-x: hidden;
+  }
+
+  .home-page .hero {
+    width: 80vw !important;
+    max-width: none !important;
+    min-height: 480px;
+    height:66vh;
+    max-height: 580px;
+    margin: 0 !important;
+    padding: clamp(24px, 4vh, 38px) max(7vw, 72px) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    display: block !important;
+    grid-template-columns: none !important;
+    background:
+      linear-gradient(90deg, rgba(255, 250, 243, 0.82) 0%, rgba(255, 250, 243, 0.72) 34%, rgba(255, 250, 243, 0.26) 58%, rgba(255, 250, 243, 0) 76%),
+      linear-gradient(135deg, #fff7ec 0%, #fff 46%, #edf8ff 100%) !important;
+  }
+
+  .home-page .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1 !important;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(255, 121, 0, 0.08) 0 180px, transparent 181px),
+      linear-gradient(90deg, rgba(255, 247, 236, 0.16), transparent 70%);
+    pointer-events: none;
+  }
+
+  .home-page .hero-inner {
+    position: relative !important;
+    z-index: 50 !important;
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+  }
+
+  .home-page .hero-text {
+    max-width: 620px;
+    padding: 22px 30px 24px;
+    transform: translateX(70px);
+    border-radius: 24px;
+    background: #ffffff !important;
+    box-shadow: 0 18px 46px rgba(24, 35, 61, 0.22) !important;
+    backdrop-filter: none !important;
+    position: relative !important;
+    z-index: 999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .home-page .hero h1 {
+    max-width: 560px;
+    font-size: clamp(28px, 3.1vw, 44px) !important;
+    line-height: 1.08 !important;
+    color: #0f1b35 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+  }
+
+  .home-page .hero .sub {
+    max-width: 540px;
+    font-size: 14px;
+    color: #1f2d48 !important;
+    font-weight: 600;
+    opacity: 1 !important;
+  }
+
+  .home-page .hero-eyebrow,
+  .home-page .hero-trial-card,
+  .home-page .hero-trial-card *,
+  .home-page .offer-step,
+  .home-page .offer-step * {
+    opacity: 1 !important;
+  }
+
+  .home-page .hero-eyebrow {
+    color: #ff7900 !important;
+    background: #fff7ec !important;
+  }
+
+  .home-page .hero,
+  .home-page .hero-inner,
+  .home-page .hero-text,
+  .home-page .hero-text * {
+    position: relative;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
+    text-shadow: none !important;
+  }
+
+  .home-page .hero-text * {
+    z-index: 1000 !important;
+  }
+
+  .home-page .hero-text h1 {
+    color: #07142f !important;
+    font-weight: 900 !important;
+  }
+
+  .home-page .hero-text .sub,
+  .home-page .hero-trial-card h2,
+  .home-page .trial-price,
+  .home-page .offer-step b {
+    color: #101a32 !important;
+    font-weight: 800 !important;
+  }
+
+  .home-page .offer-step span {
+    color: #27334d !important;
+    font-weight: 600 !important;
+  }
+
+  .home-page .trial-price strong {
+    color: #ff7900 !important;
+    font-weight: 900 !important;
+  }
+
+  .home-page #hero .hero-text {
+    background-color: #fff !important;
+    color: #07142f !important;
+  }
+
+  .home-page #hero .hero-text h1,
+  .home-page #hero .hero-text h2,
+  .home-page #hero .hero-text p,
+  .home-page #hero .hero-text span,
+  .home-page #hero .hero-text b,
+  .home-page #hero .hero-text strong,
+  .home-page #hero .hero-text a {
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .home-page .hero-trial-card {
+    max-width: 520px !important;
+    margin-top: 16px !important;
+    padding: 0 !important;
+    position: static !important;
+  }
+
+  .home-page .offer-steps {
+    display: block !important;
+    margin: 0 0 14px !important;
+    position: static !important;
+  }
+
+  .home-page .offer-steps-img {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border: 1px solid rgba(255, 121, 0, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(255, 121, 0, 0.08);
+  }
+
+  .home-page .offer-step {
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+  }
+  .student-review-list {
+    display: grid;
+    gap: 5px;
+    margin-top: 28px;
+  }
+  .student-review-item {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) 190px;
+  gap: 22px;
+  align-items: center;
+  padding: 22px;
+  border: 1px solid rgba(16, 26, 50, 0.12);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(24, 35, 61, 0.07);
+  }
+  .student-profile {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+  }
+
+  .student-avatar {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 900;
+    box-shadow: 0 10px 22px rgba(24, 35, 61, 0.12);
+  }
+
+  .student-avatar {
+    overflow: hidden;
+  }
+
+  .student-avatar-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .student-avatar.avatar-blue {
+    background: linear-gradient(135deg, #52c7df, #1b8fc5);
+  }
+
+  .student-avatar.avatar-orange {
+    background: linear-gradient(135deg, #ffb45f, #ff7900);
+  }
+
+  .student-avatar.avatar-green {
+    background: linear-gradient(135deg, #61d6a7, #0fbf9a);
+  }
+
+  .student-badge {
+    padding: 4px 10px;
+    border: 1px solid #0fbfba;
+    border-radius: 999px;
+    color: #079b96;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .student-review-main h3 {
+    margin: 0 0 8px;
+    color: #101a32;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+
+  .student-review-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-bottom: 10px;
+    color: #596275;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .student-review-text {
+    margin: 0;
+    color: #37425c;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .student-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .student-tags span {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #fff7ec;
+    color: #d86400;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .student-review-side {
+    display: grid;
+    gap: 10px;
+  }
+
+  .student-score {
+    padding: 14px;
+    border-radius: 8px;
+    background: #f8fbff;
+    color: #101a32;
+  }
+
+  .student-score strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 20px;
+  }
+
+  .student-score span {
+    color: #667085;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .student-review-side .btn-primary,
+  .student-review-side .btn-light {
+    min-height: 44px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 900;
+  }
+
+  .student-review-side .btn-light {
+    border: 1px solid rgba(16, 26, 50, 0.16);
+    color: #101a32;
+    background: #fff;
+  }
+  .home-page .hero-trial-card .btn-primary {
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    width: fit-content !important;
+    min-height: 46px !important;
+    padding: 0 20px !important;
+  }
+
+
+  .home-page .hero-trial-card h2 {
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+  }
+
+  .home-page .hero-eyebrow {
+    font-size: 14px !important;
+  }
+
+  .home-page .hero-trial-card .btn-primary {
+    font-size: 15px !important;
+  }
+
+  .home-page .hero-media {
+    display: none !important;
+  }
+
+  .home-page .promo {
+    display: block !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
+    width: min(1120px, calc(100vw - 48px)) !important;
+    max-width: 1120px !important;
+    margin: 26px auto 0 !important;
+  }
+
+  .home-page .quick-nav {
+    display: flex !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
+    width: min(1120px, calc(100vw - 48px)) !important;
+    max-width: 1120px !important;
+    margin: 18px auto 48px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+
+  .why-jentalk-section {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 20px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 250, 244, 0.55) 0%,
+        rgba(255, 255, 255, 0.72) 100%
+      ),
+      url("{{ url_for('static', filename='img/skate3.png') }}") center center / cover no-repeat;
+  }
+
+  .why-jentalk-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.25) 48%,
+        rgba(255, 255, 255, 0.45) 100%
+      );
+    pointer-events: none;
+  }
+
+  .why-jentalk-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .why-jentalk-head {
+    text-align: center;
+    margin-bottom: 42px;
+  }
+
+  .why-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #fff0df;
+    color: #ff7900;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .why-jentalk-head h2 {
+    margin: 0;
+    color: #101a32;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.25;
+    font-weight: 900;
+  }
+
+  .percent-visual {
+    margin: 22px auto 10px;
+  }
+
+  .percent-visual span {
+    display: inline-block;
+    font-size: clamp(64px, 10vw, 120px);
+    line-height: 1;
+    font-weight: 900;
+    color: #ff7900;
+    text-shadow: 0 10px 28px rgba(255, 121, 0, 0.22);
+  }
+
+  .why-jentalk-head p {
+    margin: 0;
+    color: #4b5568;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .why-jentalk-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .why-jentalk-card {
+    position: relative;
+    padding: 28px 24px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 121, 0, 0.16);
+    box-shadow: 0 14px 34px rgba(24, 35, 61, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .why-jentalk-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 121, 0, 0.38);
+    box-shadow: 0 22px 44px rgba(24, 35, 61, 0.13);
+  }
+
+  .why-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: #fff4e8;
+    font-size: 34px;
+    transition: transform 0.25s ease;
+  }
+
+  .why-jentalk-card:hover .why-icon {
+    animation: icon-wiggle 0.45s ease;
+  }
+
+  .why-jentalk-card h3 {
+    margin: 0 0 14px;
+    color: #101a32;
+    font-size: 21px;
+    line-height: 1.45;
+    font-weight: 900;
+  }
+
+  .why-jentalk-card p {
+    margin: 0;
+    color: #4b5568;
+    font-size: 15.5px;
+    line-height: 1.85;
+  }
+
+  @keyframes icon-wiggle {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(-6deg) scale(1.06);
+    }
+    50% {
+      transform: rotate(6deg) scale(1.06);
+    }
+    75% {
+      transform: rotate(-3deg) scale(1.04);
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  .home-page .why-section,
+  .home-page .why-jentalk-section,
+  .home-page .test-cards-sec,
+  .home-page .section,
+  .home-page .test-banner,
+  .home-page .test-cards,
+  .home-page .reviews-section,
+  .home-page .bottom-cta,
+  .home-page .ig-mini-link {
+    width: min(1120px, calc(100vw - 48px));
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+ @media (max-width: 768px) {
+    /* 先把最外層大容器拉回正常寬度 */
+    .home-page {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 12px !important;
+      box-sizing: border-box;
+      overflow-x: clip;
+    }
+
+    /* 調整 Hero 區塊的滿版與間距 */
+    .home-page .hero {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 12px auto 0 !important;
+      box-sizing: border-box;
+      overflow: hidden !important;
+      height: auto;
+      min-height: auto;
+      max-height: none;
+      padding: 24px 16px 34px !important; /* 如果用解法A(不切圖)，把24px改成260px */
+      gap: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 250, 243, 0.54) 48%, rgba(255, 250, 243, 0.14) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 48%, rgba(255, 255, 255, 0.08) 100%),
+        linear-gradient(135deg, #fff7ec 0%, #fff 47%, #edf8ff 100%) !important;
+    }
+
+    .home-page .hero h1 {
+      font-size: 28px !important; /* 稍微縮小字體更適合小手機 */
+    }
+
+    /* 🚀 關鍵：白色框框強制取消位移、寬度自適應 */
+    .home-page .hero-text {
+      width: calc(100% - 10px) !important;
+      max-width: calc(100% - 10px) !important;
+      min-width: 0 !important;
+      margin-left: -10px !important;
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
+      transform: none !important; /* 強制拿掉電腦版的 translateX(70px) */
+      padding: 20px 18px 22px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95) !important;
+      box-shadow: 0 14px 34px rgba(24, 35, 61, 0.16) !important;
+    }
+
+    /* 讓內層按鈕跟圖片不要溢出 */
+    .home-page .hero-trial-card,
+    .home-page .offer-steps,
+    .home-page .offer-steps-img {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box;
+    }
+
+    .home-page .hero-inner {
+      min-height: auto;
+      padding-bottom: 0;
+    }
+
+    .home-page .promo,
+    .home-page .quick-nav,
+    .home-page .why-section,
+    .home-page .why-jentalk-section,
+    .home-page .test-cards-sec,
+    .home-page .section,
+    .home-page .test-banner,
+    .home-page .test-cards,
+    .home-page .reviews-section,
+    .home-page .bottom-cta,
+    .home-page .ig-mini-link {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      box-sizing: border-box;
+    }
+
+    .why-jentalk-section {
+      padding: 56px 16px;
+    }
+
+    .why-jentalk-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .why-jentalk-card {
+      padding: 24px 20px;
+    }
+
+    .why-jentalk-head p {
+      font-size: 16px;
+    }
+
+    .home-page .reviews-section {
+      padding-top: 34px !important;
+    }
+
+    .home-page .reviews-section .section-head {
+      display: block !important;
+      text-align: left !important;
+      margin-bottom: 18px !important;
+    }
+
+    .home-page .reviews-section .section-label {
+      display: inline-flex !important;
+      margin-bottom: 8px !important;
+      font-size: 11px !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    .home-page .reviews-section .section-head h2 {
+      margin: 0 0 8px !important;
+      font-size: 28px !important;
+      line-height: 1.15 !important;
+    }
+
+    .home-page .reviews-section .section-head p {
+      margin: 0 !important;
+      font-size: 15px !important;
+      line-height: 1.65 !important;
+    }
+
+    .home-page .student-review-list {
+      gap: 5px !important;
+      margin-top: 18px !important;
+    }
+
+    .home-page .student-review-item {
+      display: grid !important;
+      grid-template-columns: 80px minmax(0, 1fr) !important;
+      gap: 14px !important;
+      align-items: start !important;
+      padding: 5px !important;
+      border-radius: 14px !important;
+    }
+
+    .home-page .student-profile {
+      display: grid !important;
+      align-content: start !important;
+      justify-items: center !important;
+      gap: 6px !important;
+      padding-top: 4px !important;
+    }
+
+    .home-page .student-avatar {
+      width: 44px !important;
+      height: 44px !important;
+      flex: 0 0 44px !important;
+      font-size: 18px !important;
+    }
+
+    .home-page .student-badge {
+      max-width: 58px !important;
+      font-size: 10px !important;
+      line-height: 1.2 !important;
+      padding: 3px 6px !important;
+      text-align: center !important;
+      white-space: normal !important;
+    }
+
+    .home-page .student-review-main {
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+    }
+
+    .home-page .student-review-main h3 {
+      font-size: 20px !important;
+      line-height: 1.35 !important;
+    }
+
+    .home-page .student-review-meta {
+      gap: 6px 10px !important;
+      font-size: 13px !important;
+    }
+
+    .home-page .student-review-text {
+      font-size: 16px !important;
+      line-height: 1.75 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
+
+    .home-page .student-review-text.is-expanded {
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+    }
+
+    .home-page .review-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      padding: 5px 10px;
+      border: 0;
+      border-radius: 999px;
+      background: #fff7ec;
+      color: #ff7900;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .home-page .review-toggle.is-hidden {
+      display: none !important;
+    }
+
+    .home-page .student-tags {
+      gap: 6px !important;
+    }
+
+    .home-page .student-tags span {
+      font-size: 12px !important;
+      padding: 4px 9px !important;
+    }
+
+    .home-page .student-review-side {
+      display: grid !important;
+      grid-column: 1 / -1 !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 10px !important;
+    }
+
+    .home-page .student-score {
+      grid-column: 1 / -1 !important;
+      padding: 14px !important;
+      border-radius: 12px !important;
+    }
+
+    .home-page .student-score strong {
+      font-size: 18px !important;
+    }
+
+    .home-page .student-review-side .btn-primary,
+    .home-page .student-review-side .btn-light {
+      min-height: 46px !important;
+      border-radius: 10px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  /* mobile clipping audit fix */
+  @media (max-width: 768px) {
+    .home-page .hero-inner {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box;
+    }
+
+    .home-page #contact .cards {
+      width: 100% !important;
+      max-width: 100% !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      box-sizing: border-box;
+    }
+
+    .home-page #contact .card {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box;
+    }
+
+    .home-page #contact .d,
+    .home-page #contact a {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-menu {
+      gap: 9px !important;
+      overflow: visible !important;
+    }
+
+    .nav-menu a {
+      font-size: 13px !important;
+      white-space: nowrap;
+    }
+
+    .nav-menu a[href="/instagram"] {
+      font-size: 0 !important;
+    }
+
+    .nav-menu a[href="/instagram"]::after {
+      content: "IG";
+      font-size: 13px;
+    }
+  }
+  .teacher-intros-section {
+    padding: 72px 20px;
+    background: #f7fbff;
+  }
+  .teacher-intros-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .teacher-intros-head {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .teacher-intros-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+  }
+  .teacher-intro-card {
+    padding: 18px;
+    border: 1px solid rgba(16, 26, 50, 0.1);
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(24, 35, 61, 0.08);
+  }
+  .teacher-intro-card h3 {
+    margin: 0 0 14px;
+    color: #101a32;
+    font-size: 20px;
+  }
+  .teacher-intro-card video {
+    display: block;
+    width: 100%;
+    max-height: 560px;
+    border-radius: 14px;
+    background: #101a32;
+    object-fit: contain;
+  }
+  @media (max-width: 768px) {
+    .teacher-intros-section { padding: 52px 16px; }
+    .teacher-intros-grid { grid-template-columns: 1fr; gap: 18px; }
+  }
+
+  .teacher-intros-section {
+    padding: 88px 20px;
+    background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+  }
+  .teacher-intros-inner { max-width: 1040px; margin: 0 auto; }
+  .teacher-intros-head { max-width: 760px; margin: 0 auto; text-align: center; }
+  .teacher-intros-head .section-label { display: inline-block; margin-bottom: 14px; }
+  .teacher-intros-head h2 { margin: 0; color: #101a32; font-size: clamp(32px, 4vw, 54px); line-height: 1.15; letter-spacing: -0.03em; }
+  .teacher-intros-head p { max-width: 620px; margin: 18px auto 0; color: #697386; font-size: 16px; line-height: 1.8; }
+  .teacher-carousel-shell { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; gap: 18px; margin: 40px auto 0; }
+  .teacher-carousel-card { min-width: 0; }
+  .teacher-intro-slide { display: grid; grid-template-columns: minmax(240px, 38%) minmax(0, 1fr); gap: 40px; align-items: center; padding: 28px; border: 1px solid rgba(16, 26, 50, 0.1); border-radius: 28px; background: #fff; box-shadow: 0 16px 36px rgba(24, 35, 61, 0.1); }
+  .teacher-intro-slide[hidden] { display: none; }
+  .teacher-video-wrap { display: grid; place-items: center; min-height: 420px; padding: 14px; border-radius: 22px; background: linear-gradient(145deg, #101a32, #243b6a); overflow: hidden; }
+  .teacher-intro-slide video { display: block; width: min(100%, 330px); height: auto; aspect-ratio: 9 / 16; border-radius: 16px; background: #101a32; object-fit: cover; }
+  .teacher-intro-info { padding: 10px 8px; }
+  .teacher-intro-kicker { color: #ff7900; font-size: 12px; font-weight: 900; letter-spacing: 0.12em; }
+  .teacher-intro-info h3 { margin: 12px 0 14px; color: #101a32; font-size: clamp(24px, 3vw, 34px); line-height: 1.2; }
+  .teacher-intro-info p { margin: 0; color: #697386; font-size: 16px; line-height: 1.8; }
+  .teacher-intro-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 26px; }
+  .teacher-intro-pills span { padding: 7px 12px; border-radius: 999px; background: #fff3e8; color: #d75f00; font-size: 13px; font-weight: 800; }
+  .teacher-carousel-arrow { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; background: #101a32; color: #fff; font-size: 30px; line-height: 1; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+  .teacher-carousel-arrow:hover { background: #ff7900; transform: translateY(-2px); }
+  .teacher-carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
+  .teacher-carousel-dot { padding: 9px 18px; border: 1px solid rgba(16, 26, 50, .14); border-radius: 999px; background: #fff; color: #697386; font-weight: 800; cursor: pointer; }
+  .teacher-carousel-dot.is-active { border-color: #ff7900; background: #ff7900; color: #fff; }
+  .teacher-carousel-status { margin: 10px 0 0; color: #697386; font-size: 13px; text-align: center; }
+  @media (max-width: 768px) {
+    .teacher-intros-section { padding: 64px 16px; }
+    .teacher-carousel-shell { grid-template-columns: 36px minmax(0, 1fr) 36px; gap: 8px; margin-top: 30px; }
+    .teacher-intro-slide { grid-template-columns: 1fr; gap: 22px; padding: 18px; }
+    .teacher-video-wrap { min-height: 0; padding: 10px; }
+    .teacher-intro-slide video { width: min(100%, 260px); }
+    .teacher-intro-info { padding: 0 6px 8px; }
+    .teacher-carousel-arrow { width: 36px; height: 36px; font-size: 24px; }
+  }
+  #test-cards-sec { padding-top: 72px; padding-bottom: 72px; }
+  #test-cards-sec .test-cards-head { max-width: 720px; margin: 0 auto; text-align: center; }
+  #test-cards-sec .test-cards-head h2 { text-align: center; }
+  #test-cards-sec .test-cards-head h2 span { display: block; }
+  .test-carousel-shell { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 14px; max-width: 1000px; margin: 30px auto 0; }
+  #test-cards-sec .test-cards { display: block !important; min-width: 0; margin: 0; }
+  #test-cards-sec .test-card-item { display: none !important; grid-template-columns: minmax(0, 1fr) minmax(220px, .8fr); gap: 24px; align-items: center; padding: 26px; border: 1px solid rgba(16, 26, 50, 0.1); border-radius: 24px; background: #fff; box-shadow: 0 12px 30px rgba(24, 35, 61, 0.08); }
+  #test-cards-sec .test-card-item.is-active { display: grid !important; }
+  #test-cards-sec .test-card-item[hidden] { display: none !important; }
+  #test-cards-sec .test-card { height: 100%; }
+  #test-cards-sec .test-card-item > img { display: block; width: 100%; max-height: 320px; border-radius: 16px; object-fit: contain; }
+  .test-carousel-arrow { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #101a32; color: #fff; font-size: 30px; line-height: 1; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+  .test-carousel-arrow:hover { background: #ff7a1a; transform: translateY(-2px); }
+  .test-carousel-dots { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; }
+  .test-carousel-dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 999px; background: #cbd5e1; cursor: pointer; transition: width .2s ease, background .2s ease; }
+  .test-carousel-dot.is-active { width: 28px; background: #ff7a1a; }
+  .test-carousel-status { margin: 10px 0 0; color: #697386; font-size: 13px; text-align: center; }
+  @media (max-width: 768px) {
+    #test-cards-sec { padding: 52px 16px; }
+    .test-carousel-shell { grid-template-columns: 38px minmax(0, 1fr) 38px; gap: 6px; }
+    #test-cards-sec .test-card-item { grid-template-columns: 1fr; gap: 18px; padding: 18px; }
+    .test-carousel-arrow { width: 38px; height: 38px; font-size: 24px; }
+  }
+
+  /* v2 visual refresh: speaking check journey */
+  #test-cards-sec {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: min(1120px, calc(100vw - 48px));
+    max-width: 1120px;
+    margin: 76px auto 0;
+    padding: 92px 52px 78px;
+    border: 1px solid rgba(255, 122, 26, 0.12);
+    border-radius: 38px;
+    background:
+      radial-gradient(circle at 8% 12%, rgba(255, 188, 120, 0.32), transparent 28%),
+      radial-gradient(circle at 96% 88%, rgba(189, 225, 255, 0.52), transparent 30%),
+      linear-gradient(135deg, #fffaf4 0%, #fff 54%, #f4fbff 100%);
+    box-shadow: 0 24px 60px rgba(24, 35, 61, 0.10);
+  }
+  #test-cards-sec::before,
+  #test-cards-sec::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 999px;
+  }
+  #test-cards-sec::before {
+    width: 230px;
+    height: 230px;
+    top: -120px;
+    right: 70px;
+    border: 1px solid rgba(16, 26, 50, 0.08);
+    box-shadow: 0 0 0 24px rgba(16, 26, 50, 0.025), 0 0 0 48px rgba(16, 26, 50, 0.02);
+  }
+  #test-cards-sec::after {
+    width: 160px;
+    height: 160px;
+    bottom: -90px;
+    left: 22px;
+    background: rgba(255, 122, 26, 0.08);
+  }
+  #test-cards-sec .test-cards-head {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #test-cards-sec .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 122, 26, 0.25);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    color: #e96610;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    box-shadow: 0 8px 18px rgba(255, 122, 26, 0.08);
+  }
+  #test-cards-sec .section-label::before {
+    content: "✦";
+    font-size: 13px;
+  }
+  #test-cards-sec .test-cards-head h2 {
+    margin: 18px 0 14px;
+    color: #101a32;
+    font-size: clamp(32px, 4vw, 50px);
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+  }
+  #test-cards-sec .test-cards-head p {
+    max-width: 590px;
+    margin: 0 auto;
+    color: #697386;
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  #test-cards-sec .test-carousel {
+    position: relative;
+    z-index: 1;
+    margin-top: 42px;
+  }
+  #test-cards-sec .test-carousel::before {
+    content: "3 個步驟，找到你的開口起點";
+    display: block;
+    width: fit-content;
+    margin: 0 auto 16px;
+    color: #101a32;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+  #test-cards-sec .test-carousel-shell {
+    grid-template-columns: 50px minmax(0, 1fr) 50px;
+    gap: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  #test-cards-sec .test-card-item {
+    grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+    min-height: 390px;
+    padding: 0;
+    border: 0;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #101a32;
+    box-shadow: 0 22px 42px rgba(16, 26, 50, 0.18);
+  }
+  #test-cards-sec .test-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: 390px;
+    padding: 44px 50px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #101a32 0%, #172747 66%, #223963 100%);
+    color: #fff;
+  }
+  #test-cards-sec .test-card::before {
+    content: "SPEAKING CHECK";
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+  }
+  #test-cards-sec .test-card::after {
+    content: "";
+    position: absolute;
+    right: -68px;
+    bottom: -82px;
+    width: 190px;
+    height: 190px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.03), 0 0 0 40px rgba(255, 255, 255, 0.025);
+  }
+  #test-cards-sec .test-card h3 {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    margin: 28px 0 18px;
+    color: #fff;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.3;
+    letter-spacing: -0.035em;
+  }
+  #test-cards-sec .test-card p {
+    position: relative;
+    z-index: 1;
+    max-width: 510px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+  #test-cards-sec .test-card-item > img {
+    width: 100%;
+    height: 100%;
+    min-height: 390px;
+    max-height: none;
+    border-radius: 0;
+    object-fit: cover;
+    background: #ffecd7;
+  }
+  #test-cards-sec .test-carousel-arrow {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(16, 26, 50, 0.08);
+    background: rgba(16, 26, 50, 0.94);
+    box-shadow: 0 10px 22px rgba(16, 26, 50, 0.16);
+  }
+  #test-cards-sec .test-carousel-arrow:hover {
+    background: #ff7a1a;
+    box-shadow: 0 12px 24px rgba(255, 122, 26, 0.24);
+  }
+  #test-cards-sec .test-carousel-dots {
+    gap: 6px;
+    margin-top: 26px;
+  }
+  #test-cards-sec .test-carousel-dot {
+    width: 30px;
+    height: 6px;
+    background: rgba(16, 26, 50, 0.16);
+  }
+  #test-cards-sec .test-carousel-dot.is-active {
+    width: 70px;
+    background: #ff7a1a;
+  }
+  #test-cards-sec .test-carousel-status {
+    margin-top: 12px;
+    color: #697386;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 768px) {
+    #test-cards-sec {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 44px;
+      padding: 66px 16px 54px;
+      border-radius: 26px;
+    }
+    #test-cards-sec .test-cards-head h2 {
+      font-size: 34px;
+    }
+    #test-cards-sec .test-cards-head p {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    #test-cards-sec .test-carousel {
+      margin-top: 34px;
+    }
+    #test-cards-sec .test-carousel-shell {
+      grid-template-columns: 36px minmax(0, 1fr) 36px;
+      gap: 6px;
+    }
+    #test-cards-sec .test-card-item {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      border-radius: 24px;
+    }
+    #test-cards-sec .test-card {
+      min-height: 300px;
+      padding: 42px 26px 34px;
+    }
+    #test-cards-sec .test-card::before {
+      top: 24px;
+      left: 26px;
+    }
+    #test-cards-sec .test-card h3 {
+      margin-top: 24px;
+      font-size: 25px;
+    }
+    #test-cards-sec .test-card p {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    #test-cards-sec .test-card-item > img {
+      min-height: 230px;
+      height: 230px;
+    }
+    #test-cards-sec .test-carousel-arrow {
+      width: 36px;
+      height: 36px;
+      font-size: 24px;
+    }
+  }
+
+
+  /* v3 CAPIFY-inspired editorial layout */
+  #test-cards-sec {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: min(1180px, calc(100vw - 48px));
+    max-width: 1180px;
+    margin: 84px auto 0;
+    padding: 86px 64px 72px;
+    border: 0;
+    border-radius: 0;
+    background: #efeae3;
+    box-shadow: none;
+  }
+  #test-cards-sec::before,
+  #test-cards-sec::after {
+    display: none;
+  }
+  #test-cards-sec .test-cards-head {
+    display: grid;
+    grid-template-columns: 0.72fr 1.45fr 1fr;
+    align-items: end;
+    gap: 36px;
+    max-width: none;
+    margin: 0;
+    padding-bottom: 52px;
+    border-bottom: 1px solid rgba(16, 26, 50, 0.34);
+    text-align: left;
+  }
+  #test-cards-sec .section-label {
+    display: block;
+    align-self: start;
+    padding: 3px 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #101a32;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: 0.13em;
+  }
+  #test-cards-sec .section-label::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 2px;
+    margin-bottom: 16px;
+    background: #ff7a1a;
+  }
+  #test-cards-sec .test-cards-head h2 {
+    margin: 0;
+    max-width: 610px;
+    color: #101010;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.055em;
+  }
+  #test-cards-sec .test-cards-head p {
+    max-width: 330px;
+    margin: 0;
+    color: #545454;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  #test-cards-sec .test-carousel {
+    position: relative;
+    z-index: 1;
+    margin-top: 40px;
+  }
+  #test-cards-sec .test-carousel::before {
+    content: "SPEAKING PATH  /  01 — 03";
+    display: block;
+    width: auto;
+    margin: 0 0 18px 66px;
+    color: #101010;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+  #test-cards-sec .test-carousel-shell {
+    grid-template-columns: 50px minmax(0, 1fr) 50px;
+    align-items: center;
+    gap: 16px;
+    max-width: none;
+    margin: 0;
+  }
+  #test-cards-sec .test-card-item {
+    grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+    min-height: 430px;
+    padding: 0;
+    border: 1px solid #101010;
+    border-radius: 0;
+    overflow: hidden;
+    background: #efeae3;
+    box-shadow: none;
+  }
+  #test-cards-sec .test-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: 430px;
+    padding: 64px 58px;
+    overflow: hidden;
+    border-right: 1px solid #101010;
+    background: transparent;
+    color: #101010;
+  }
+  #test-cards-sec .test-card::before {
+    content: "STEP " attr(data-step);
+    position: absolute;
+    top: 34px;
+    left: 58px;
+    color: #101010;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+  }
+  #test-cards-sec .test-card::after {
+    content: "↗";
+    position: absolute;
+    top: 25px;
+    right: 28px;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #101010;
+    border-radius: 50%;
+    box-shadow: none;
+    color: #101010;
+    font-size: 18px;
+  }
+  #test-cards-sec .test-card h3 {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 30px 0 22px;
+    color: #101010;
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+  }
+  #test-cards-sec .test-card p {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin: 0;
+    color: #545454;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  #test-cards-sec .test-card-item > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+    max-height: none;
+    border-radius: 0;
+    object-fit: cover;
+    background: #d7b273;
+    filter: saturate(0.8) contrast(0.96);
+  }
+  #test-cards-sec .test-carousel-arrow {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #101010;
+    border-radius: 0;
+    background: #101010;
+    box-shadow: none;
+    color: #fff;
+    font-size: 26px;
+  }
+  #test-cards-sec .test-carousel-arrow:hover {
+    border-color: #ff7a1a;
+    background: #ff7a1a;
+    box-shadow: none;
+    transform: translateY(-2px);
+  }
+  #test-cards-sec .test-carousel-dots {
+    justify-content: flex-start;
+    gap: 7px;
+    margin: 24px 0 0 66px;
+  }
+  #test-cards-sec .test-carousel-dot {
+    width: 38px;
+    height: 3px;
+    border-radius: 0;
+    background: rgba(16, 16, 16, 0.22);
+  }
+  #test-cards-sec .test-carousel-dot.is-active {
+    width: 84px;
+    background: #101010;
+  }
+  #test-cards-sec .test-carousel-status {
+    margin: 10px 0 0 66px;
+    color: #545454;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-align: left;
+  }
+  @media (max-width: 900px) {
+    #test-cards-sec {
+      width: min(100%, calc(100vw - 24px));
+      padding: 62px 28px 54px;
+    }
+    #test-cards-sec .test-cards-head {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding-bottom: 38px;
+    }
+    #test-cards-sec .test-cards-head h2 {
+      font-size: clamp(38px, 10vw, 54px);
+    }
+    #test-cards-sec .test-cards-head p {
+      max-width: 580px;
+    }
+    #test-cards-sec .test-card-item {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    #test-cards-sec .test-card {
+      min-height: 350px;
+      padding: 64px 38px 46px;
+      border-right: 0;
+      border-bottom: 1px solid #101010;
+    }
+    #test-cards-sec .test-card::before {
+      left: 38px;
+    }
+    #test-cards-sec .test-card-item > img {
+      min-height: 280px;
+      height: 280px;
+    }
+  }
+  @media (max-width: 560px) {
+    #test-cards-sec {
+      margin-top: 44px;
+      padding: 52px 14px 44px;
+    }
+    #test-cards-sec .test-carousel::before {
+      margin-left: 42px;
+    }
+    #test-cards-sec .test-carousel-shell {
+      grid-template-columns: 34px minmax(0, 1fr) 34px;
+      gap: 4px;
+    }
+    #test-cards-sec .test-card {
+      min-height: 330px;
+      padding: 60px 24px 38px;
+    }
+    #test-cards-sec .test-card::before {
+      left: 24px;
+    }
+    #test-cards-sec .test-card::after {
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+    }
+    #test-cards-sec .test-card h3 {
+      font-size: 28px;
+    }
+    #test-cards-sec .test-carousel-arrow {
+      width: 34px;
+      height: 34px;
+      font-size: 22px;
+    }
+    #test-cards-sec .test-carousel-dots,
+    #test-cards-sec .test-carousel-status {
+      margin-left: 42px;
+    }
+  }
+
+  /* Keep carousel controls above the media panel */
+  #test-cards-sec .test-carousel-arrow { position: relative; z-index: 5; }
+
+/* JT_ORANGE_THEME_20260919 */
+:root {
+  --jt-orange: #f47b20;
+  --jt-orange-dark: #d95f0d;
+  --jt-orange-soft: #fff1e6;
+  --jt-orange-pale: #fff8f2;
+  --jt-ink: #171717;
+  --jt-muted: #5f5a55;
+  --jt-white: #ffffff;
+}
+
+/* JenTalk「TAKE THE FIRST STEP」區塊配色補丁 */
+#test-cards-sec {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(244, 123, 32, 0.14), transparent 28%),
+    linear-gradient(180deg, var(--jt-orange-pale) 0%, var(--jt-white) 100%);
+  color: var(--jt-ink);
+}
+
+#test-cards-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 6px;
+  background: var(--jt-orange);
+}
+
+#test-cards-sec .section-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--jt-orange);
+  border-radius: 999px;
+  background: var(--jt-orange-soft);
+  color: var(--jt-orange-dark);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+#test-cards-sec .test-cards-head h2 {
+  color: var(--jt-ink);
+  letter-spacing: -0.035em;
+}
+
+#test-cards-sec .test-cards-head h2::after {
+  content: ".";
+  color: var(--jt-orange);
+}
+
+#test-cards-sec .test-cards-head p,
+#test-cards-sec .test-card p {
+  color: var(--jt-muted);
+}
+
+#test-cards-sec .test-card-item {
+  overflow: hidden;
+  border: 2px solid var(--jt-ink);
+  border-radius: 24px;
+  background: var(--jt-white);
+  box-shadow: 12px 12px 0 var(--jt-orange);
+}
+
+#test-cards-sec .test-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem);
+  background: var(--jt-white);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#test-cards-sec .test-card::before {
+  content: "STEP " attr(data-step);
+  align-self: flex-start;
+  margin-bottom: clamp(2rem, 6vw, 5rem);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: var(--jt-ink);
+  color: var(--jt-white);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+#test-cards-sec .test-card h3 {
+  max-width: 11em;
+  color: var(--jt-ink);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.16;
+}
+
+#test-cards-sec .test-card h3::first-letter {
+  color: var(--jt-orange);
+}
+
+#test-cards-sec .test-card p {
+  max-width: 38rem;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+#test-cards-sec .test-card-item img {
+  background: var(--jt-orange-soft);
+  filter: sepia(0.28) saturate(1.08) contrast(1.04);
+}
+
+#test-cards-sec .test-card-item::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 50%;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(244, 123, 32, 0.62), rgba(217, 95, 13, 0.28));
+  mix-blend-mode: multiply;
+}
+
+#test-cards-sec .test-carousel-arrow {
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--jt-ink);
+  border-radius: 50%;
+  background: var(--jt-white);
+  color: var(--jt-ink);
+  box-shadow: 4px 4px 0 var(--jt-orange);
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+#test-cards-sec .test-carousel-arrow:hover,
+#test-cards-sec .test-carousel-arrow:focus-visible {
+  transform: translate(-2px, -2px);
+  background: var(--jt-orange);
+  color: var(--jt-white);
+}
+
+#test-cards-sec .test-carousel-dot {
+  height: 8px;
+  border-radius: 999px;
+  background: #d8d2cc;
+}
+
+#test-cards-sec .test-carousel-dot.is-active {
+  width: 72px;
+  background: var(--jt-orange);
+}
+
+#test-cards-sec .test-carousel-status {
+  color: var(--jt-ink);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  #test-cards-sec .test-card-item {
+    border-radius: 18px;
+    box-shadow: 7px 7px 0 var(--jt-orange);
+  }
+
+  #test-cards-sec .test-card-item::after {
+    inset: 55% 0 0;
+  }
+
+  #test-cards-sec .test-card {
+    padding: 2rem 1.5rem 2.5rem;
+  }
+
+  #test-cards-sec .test-card::before {
+    margin-bottom: 1.5rem;
+  }
+
+  #test-cards-sec .test-carousel-arrow {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+
+
+#level-test.test-banner {
+  position: relative;
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(244, 122, 36, 0.18);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #fff8f0 0%, #ffffff 58%, #fff0e2 100%);
+  box-shadow: 0 18px 45px rgba(24, 35, 61, 0.12);
+  color: var(--jt-ink, #18233d);
+}
+#level-test.test-banner::after {
+  content: "";
+  position: absolute;
+  right: -58px;
+  bottom: -78px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: rgba(244, 122, 36, 0.11);
+  pointer-events: none;
+}
+#level-test .test-banner-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 32px 40px;
+}
+#level-test .test-banner-copy {
+  min-width: 0;
+  text-align: left;
+}
+#level-test .test-banner-kicker {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 11px;
+  border: 1px solid rgba(244, 122, 36, 0.2);
+  border-radius: 999px;
+  background: rgba(244, 122, 36, 0.12);
+  color: var(--jt-orange, #f47a24);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+#level-test .test-banner-copy h2 {
+  margin: 12px 0 8px;
+  color: var(--jt-ink, #18233d);
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  line-height: 1.15;
+}
+#level-test .test-banner-copy p {
+  margin: 0;
+  color: rgba(24, 35, 61, 0.72);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+#level-test .test-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 23px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--jt-orange, #f47a24), #ff9c4b);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(244, 122, 36, 0.24);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+#level-test .test-btn:hover,
+#level-test .test-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(244, 122, 36, 0.3);
+}
+#level-test .test-btn span {
+  font-size: 1.2em;
+  line-height: 1;
+}
+@media (max-width: 760px) {
+  #level-test .test-banner-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 26px 22px;
+  }
+  #level-test .test-banner-copy {
+    text-align: center;
+  }
+  #level-test .test-btn {
+    width: 100%;
+  }
+}
+</style>
+<style id="home-polish-layout">
+/* Homepage typography and surfaces. */
+body .home-page {
+  --home-ink: #17243a;
+  --home-muted: #48566a;
+  --home-orange: #c54b0a;
+  --home-orange-hover: #a93c05;
+  --home-cream: #fff9f2;
+  --home-border: #ded9d3;
+  --home-card-shadow: 0 10px 28px rgba(23, 36, 58, .07);
+}
+
+body.site-refresh .home-page .home-cover {
+  display: block;
+  background: var(--home-cream);
+}
+
+body.site-refresh .home-page .home-cover > img {
+  width: 100%;
+  height: clamp(300px, 33vw, 500px);
+  object-fit: cover;
+  object-position: center top;
+}
+
+body.site-refresh .home-page .cover-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 48px;
+  margin: -28px 0 0;
+  padding: 42px max(32px, calc((100% - 1080px) / 2)) 38px;
+  background: linear-gradient(transparent, var(--home-cream) 29px);
+}
+
+body.site-refresh .home-page .cover-copy h1 {
+  font-size: clamp(36px, 4.4vw, 58px);
+  line-height: 1.16;
+  margin-bottom: 14px;
+}
+
+body.site-refresh .home-page .cover-copy .sub {
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.7;
+}
+
+body.site-refresh .home-page .cover-copy #hero {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  overflow: visible;
+  scroll-margin-top: 84px;
+}
+
+body .home-page :is(.why-jentalk-head, .teacher-intros-head, .section-head, .test-banner, .beginner-card, .test-result-offer, .faq, #contact, .ig-mini-link) h2 {
+  font-size: clamp(26px, 3vw, 40px) !important;
+  line-height: 1.24 !important;
+  letter-spacing: -.025em;
+  color: var(--home-ink);
+}
+
+body .home-page :is(.why-jentalk-card, .teacher-intro-info, .student-review-main) h3 {
+  color: var(--home-ink);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+body .home-page :is(.why-jentalk-card, .student-review-item, #teacher-intros .teacher-carousel-card) {
+  background: #fff;
+  border: 1px solid var(--home-border);
+  border-radius: 20px;
+  box-shadow: var(--home-card-shadow);
+  min-width: 0;
+}
+
+body .home-page #teacher-intros .teacher-intro-info {
+  min-width: 0;
+}
+
+body .home-page .student-score {
+  background: #f4f7fa;
+  border-radius: 12px;
+}
+
+body .home-page :is(.hero-actions, .plan-actions) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: stretch;
+}
+
+body .home-page .student-review-side {
+  grid-auto-rows: auto;
+}
+
+body .home-page :is(a.btn-primary, a.btn-light, a.hero-secondary, a.test-btn) {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: .45em;
+  min-width: 0;
+  min-height: 48px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px 16px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+body .home-page :is(.hero-actions, .plan-actions, .student-review-side) > :is(a.btn-primary, a.btn-light, a.hero-secondary) {
+  height: 52px;
+  margin: 0 !important;
+}
+
+body .home-page a.btn-primary {
+  background: var(--home-orange) !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+  box-shadow: none;
+}
+
+body .home-page a.btn-primary:hover {
+  background: var(--home-orange-hover) !important;
+}
+
+body .home-page :is(a.btn-light, a.hero-secondary),
+body .home-page #level-test a.test-btn {
+  color: var(--home-ink) !important;
+  background: #fff !important;
+  border: 1px solid var(--home-border);
+}
+
+body .home-page :is(a.btn-light, a.hero-secondary):hover,
+body .home-page #level-test a.test-btn:hover {
+  border-color: var(--home-orange);
+  background: #fff5e9 !important;
+}
+
+body .home-page :is(a.btn-primary, a.btn-light, a.hero-secondary, a.test-btn, summary):focus-visible {
+  outline: 2px solid var(--home-ink);
+  outline-offset: 3px;
+}
+
+body .home-page .review-toggle {
+  color: #9f3f0c;
+  background: #fff3e6;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  body.site-refresh .home-page .home-cover > img {
+    height: auto;
+    object-fit: contain;
+    padding-top: 12px;
+  }
+
+  body.site-refresh .home-page .cover-copy {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-top: -24px;
+    padding: 13px 18px 25px;
+    background: linear-gradient(transparent, var(--home-cream) 25px);
+  }
+
+  body.site-refresh .home-page .cover-copy h1 {
+    font-size: clamp(29px, 7.7vw, 42px);
+    margin-bottom: 9px;
+  }
+
+  body.site-refresh .home-page .cover-copy .hero-assurance {
+    margin-top: 13px;
+  }
+
+  body.site-refresh .home-page .cover-copy #hero {
+    scroll-margin-top: 62px;
+  }
+}
+
+@media (max-width: 440px) {
+  body.site-refresh .home-page :is(.hero-actions, .plan-actions, .student-review-side) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body .home-page :is(.hero-actions, .plan-actions, .student-review-side) > a {
+    width: 100% !important;
+    max-width: 100%;
+  }
+}
+
+
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="hero">
-  <div class="hero-media">
-    <img src="{{ url_for('static', filename='img/eng_pic.png') }}" alt="JenTalk Hero">
-  </div>
-
-  <div class="hero-inner">
-    <div class="hero-text">
-      <h1><span class="hero-title-line">IMPROVE</span><br><span class="hero-title-line">YOUR ENGLISH</span></h1>
-      <p class="sub">Anytime, Anywhere</p>
-
-      <div class="hero-actions">
-        <a class="btn-primary" href="{{ url_for('booking.trial_form') }}">立即索取免費課程</a>
-        <a class="btn-ghost" href="{{ url_for('main.pricing') }}">查看課程內容</a>
-      </div>
-
-      <div class="hero-bullets">
-        <span>外師一對一口說</span>
-        <span>糾音＋回饋</span>
-        <span>可試聽再決定</span>
-      </div>
+<div class="home-page">
+<figure class="home-cover">
+  <img src="{{ url_for('static', filename='img/home-cover-people-v6.png') }}" alt="JenTalk 首頁人物形象圖" fetchpriority="high">
+  <figcaption class="cover-copy">
+    <div class="home-hero-copy">
+    <p class="hero-eyebrow">JENTALK ENGLISH · 線上一對一英文</p>
+    <h1><span>把英文，變成</span><span><em>敢說的</em>日常。</span></h1>
+    <p class="sub">從日常聊天到旅遊與職場，跟著外師依照你的程度練習，找到自在開口的節奏。</p>
     </div>
-  </div>
+<section id="hero" class="hero">
+  <div class="hero-inner"><div class="hero-text">
+    <div class="hero-actions"><a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約 $100 體驗課</a><a class="hero-secondary" href="/courses/speaking">先看看課程 →</a></div>
+    <ul class="hero-assurance"><li>25 分鐘體驗</li><li>免綁課</li><li>不推銷</li></ul>
+  </div></div>
 </section>
-
-<section class="promo">
-   購買 100 堂課程，免費送你 15 堂
-</section>
+  </figcaption>
+</figure>
 
 <div class="quick-nav">
   <a href="/courses/speaking" class="quick-btn">課程內容</a>
@@ -58,60 +2425,131 @@
 <!--  </div>-->
 <!--</section>-->
 
-<section class="why-section">
-  <h2>為什麼選我們？</h2>
+<section class="why-jentalk-section"><div class="why-jentalk-inner">
+  <div class="why-jentalk-head"><span class="why-label">WHY JENTALK</span><h2>從不敢開口，到願意多說一句。</h2><p>讓練習貼近生活，也配合你的學習節奏。</p></div>
+  <div class="why-jentalk-cards">
+    <article class="why-jentalk-card"><h3>依你的程度，一起練習</h3><p>老師依程度調整說話速度、單字與內容，從簡單短句開始，逐步練習更完整的表達。</p></article>
+    <article class="why-jentalk-card"><h3>固定學習，也保留彈性</h3><p>每週固定時段上課。需要請假時，最晚於課前 30 分鐘通知老師；請假次數依購買方案規定。</p></article>
+    <article class="why-jentalk-card"><h3>先體驗，再決定</h3><p>用 $100 體驗 25 分鐘一對一課程，認識老師的教學方式，再決定是否購買正式課程。</p></article>
+  </div></div></section>
 
-  <div class="why-cards">
-    <div class="why-card" data-motion-reveal>
-      <h3>專業指導英文口說</h3>
-      <p>零基礎不用怕，老師會一步一步帶你慢慢說。</p>
-    </div>
-
-    <div class="why-card" data-motion-reveal>
-      <h3>時間彈性排課方便</h3>
-      <p>專為上班族設計，下班後也能輕鬆安排課程。</p>
-    </div>
-
-    <div class="why-card" data-motion-reveal>
-      <h3>教材客製化|你需要的才學</h3>
-      <p>職場/旅遊/面試/會議口說</p>
-    </div>
-  </div>
-</section>
-
+<section class="section beginner-offer" id="plan"><div class="beginner-card">
+  <span class="offer-label">YOUR FIRST LESSON · 第一次上課</span>
+  <h2>先試一堂，找到適合你的節奏。</h2>
+  <p class="plan-facts">$100 / 25 分鐘一對一外師體驗課。完課填寫簡短心得，再送 $100 正式課程折價券，後續購課可直接折抵。</p>
+  <ol class="trial-flow" aria-label="體驗課流程"><li><b aria-hidden="true">01</b><strong>線上預約</strong><span>填寫需求與上課時間</span></li><li><b aria-hidden="true">02</b><strong>一對一練習</strong><span>25 分鐘外師體驗課</span></li><li><b aria-hidden="true">03</b><strong>心得回饋</strong><span>送 $100 正式課程折價券</span></li></ol>
+  <div class="plan-actions"><a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約 $100 體驗課</a><a class="hero-secondary" href="#faq">了解課程與請假規定 →</a></div>
+</div></section>
 
 <section class="test-banner" id="level-test">
-  <h2>立即測驗你的英文程度</h2>
-  <a href="#test" class="test-btn">開始測驗</a>
+  <div class="test-banner-inner">
+    <div class="test-banner-copy">
+      <span class="test-banner-kicker">SPEAKING CHECK</span>
+      <h2>立即測驗英文程度</h2>
+      <p>30 秒找到你的口說起點，選擇適合的練習方式。</p>
+    </div>
+    <a href="https://liff.line.me/2010776590-RYlsUx8X" class="test-btn">開始測驗 <span aria-hidden="true">→</span></a>
+  </div>
 </section>
 
-<div class="test-cards">
-
-  <div class="test-card-item">
-    <div class="test-card">
-      <h3>快速判斷程度</h3>
-      <p>從入門開口、生活探索、旅行溝通，到社交表達與職場英文，快速找到目前階段。</p>
-    </div>
-    <img src="{{ url_for('static', filename='img/test-1.png') }}" alt="快速判斷程度">
+<section class="test-cards-sec" id="test-cards-sec">
+  <div class="section-head test-cards-head">
+    <span class="section-label">TAKE THE FIRST STEP</span>
+    <h2 class="test-cards-title"><span>勇敢一次</span><span>跳脫舒適圈</span></h2>
+    <p>30 秒輕鬆快篩，先找到你的口說起點，再選擇適合的練習方式。</p>
   </div>
-
-  <div class="test-card-item">
-    <div class="test-card">
-      <h3>對應真實情境</h3>
-      <p>依你的程度，模擬適合的場景，例如點餐、問路、旅遊問題處理、聊天與工作溝通。</p>
+  <div class="test-carousel" data-test-carousel>
+    <div class="test-carousel-shell">
+      <button type="button" class="test-carousel-arrow" data-test-prev aria-label="上一張">‹</button>
+      <div class="test-cards" aria-live="polite">
+        <div class="test-card-item is-active" data-test-slide aria-hidden="false">
+          <div class="test-card" data-step="01">
+            <h3 class="test-text-heading">擺脫死板分數！精準定位口說落點</h3>
+            <p>不用應付複雜的選擇題，我們透過生活化的直覺反應，30 秒內幫你釐清目前處在「單字拼湊」、「盲點卡關」還是「流利社交」階段。</p>
+          </div>
+          <img src="{{ url_for("static", filename="img/test-11.png") }}" alt="快速判斷程度">
+        </div>
+        <div class="test-card-item" data-test-slide aria-hidden="true" hidden>
+          <div class="test-card" data-step="02">
+            <h3 class="test-text-heading">模擬真實場景，直擊你的聊天痛點</h3>
+            <p>針對出國點餐卡住、職場開會漏氣等真實情境進行快篩，不浪費時間學用不到的冷門文法，只鎖定你明天馬上要用的對話盲區。</p>
+          </div>
+          <img class="test-scene-levelup" src="{{ url_for("static", filename="img/test-scene-levelup-realistic.png") }}" alt="Level Up JenTalk：冒險、旅遊、跟外國人交談與演講情境示意">
+        </div>
+        <div class="test-card-item" data-test-slide aria-hidden="true" hidden>
+          <div class="test-card" data-step="03">
+            <h3 class="test-text-heading">帶上健檢報告，一鍵預約外師解讀</h3>
+            <p>測驗完不用看一堆看不懂的數據！直接帶著這份健檢報告預約 $100 體驗課，由一對一外師在課堂上親自為你拆解並給出個人化提升建議。</p>
+          </div>
+          <img src="{{ url_for("static", filename="img/test-32-20260919.png") }}" alt="得到下一步建議">
+        </div>
+      </div>
+      <button type="button" class="test-carousel-arrow" data-test-next aria-label="下一張" onclick="(function(button){var carousel=button.closest('[data-test-carousel]');var dots=Array.from(carousel.querySelectorAll('[data-test-dot]'));var current=dots.findIndex(function(dot){return dot.classList.contains('is-active');});dots[(current+1)%dots.length].click();})(this)">›</button>
     </div>
-    <img src="{{ url_for('static', filename='img/test-2.png') }}" alt="對應真實情境">
-  </div>
-
-  <div class="test-card-item">
-    <div class="test-card">
-      <h3>得到下一步建議</h3>
-      <p>測完後可直接知道建議課程方向，幫你更快選擇適合的老師與方案。</p>
+    <div class="test-carousel-dots" role="tablist" aria-label="快篩重點切換">
+      <button type="button" class="test-carousel-dot is-active" data-test-dot="0" role="tab" aria-label="查看第 1 張" aria-selected="true"></button>
+      <button type="button" class="test-carousel-dot" data-test-dot="1" role="tab" aria-label="查看第 2 張" aria-selected="false"></button>
+      <button type="button" class="test-carousel-dot" data-test-dot="2" role="tab" aria-label="查看第 3 張" aria-selected="false"></button>
     </div>
-    <img src="{{ url_for('static', filename='img/test-3.png') }}" alt="得到下一步建議">
+    <p class="test-carousel-status" data-test-status aria-live="polite">第 1 步 / 3 步</p>
   </div>
+</section>
 
-</div>
+
+
+<section class="teacher-intros-section" id="teacher-intros">
+  <div class="teacher-intros-inner">
+    <div class="teacher-intros-head">
+      <span class="section-label">MEET OUR TEACHERS</span>
+      <h2><span class="teacher-brand">JENTALK</span>你的口說好夥伴</h2>
+      <p>先聽聽老師怎麼說，找到適合你的學習節奏，讓每一次開口都更有自信。</p>
+    </div>
+
+    <div class="teacher-carousel-shell" data-teacher-carousel>
+      <button class="teacher-carousel-arrow" type="button" data-teacher-prev aria-label="上一位老師">‹</button>
+      <div class="teacher-carousel-card">
+        <article class="teacher-intro-slide is-active" data-teacher-slide aria-hidden="false">
+          <div class="teacher-video-wrap">
+            <video controls preload="metadata" playsinline aria-label="老師自我介紹 1">
+              <source src="{{ url_for("static", filename="teacher-intro-1.mp4") }}" type="video/mp4">
+              你的瀏覽器不支援影片播放。
+            </video>
+          </div>
+          <div class="teacher-intro-info">
+            <span class="teacher-intro-kicker">TEACHER 1 / 2</span>
+            <h3>老師自我介紹 1</h3>
+            <p>先從老師的自我介紹認識教學方式，找到適合自己的口說練習節奏。</p>
+            <div class="teacher-intro-pills"><span>一對一練習</span><span>自然開口</span></div>
+            <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約體驗課</a>
+          </div>
+        </article>
+
+        <article class="teacher-intro-slide" data-teacher-slide hidden aria-hidden="true">
+          <div class="teacher-video-wrap">
+            <video controls preload="metadata" playsinline aria-label="老師自我介紹 2">
+              <source src="{{ url_for("static", filename="teacher-intro-2.mp4") }}" type="video/mp4">
+              你的瀏覽器不支援影片播放。
+            </video>
+          </div>
+          <div class="teacher-intro-info">
+            <span class="teacher-intro-kicker">TEACHER 2 / 2</span>
+            <h3>老師自我介紹 2</h3>
+            <p>看看老師如何用生活情境陪你練習，讓英文對話變得更自然。</p>
+            <div class="teacher-intro-pills"><span>生活化對話</span><span>陪你敢講</span></div>
+            <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約體驗課</a>
+          </div>
+        </article>
+      </div>
+      <button class="teacher-carousel-arrow" type="button" data-teacher-next aria-label="下一位老師">›</button>
+    </div>
+
+    <div class="teacher-carousel-dots" role="tablist" aria-label="老師介紹切換">
+      <button class="teacher-carousel-dot is-active" type="button" data-teacher-dot aria-label="查看老師 1" aria-selected="true">老師 1</button>
+      <button class="teacher-carousel-dot" type="button" data-teacher-dot aria-label="查看老師 2" aria-selected="false">老師 2</button>
+    </div>
+    <p class="teacher-carousel-status" data-teacher-status>第 1 / 2 位</p>
+  </div>
+</section>
 
 <section class="reviews-section" id="reviews">
   <div class="section-head">
@@ -120,73 +2558,233 @@
     <p>每一位學員的起點不同，但都在課程中找到更敢開口的方法。</p>
   </div>
 
-  <div class="review-grid">
-
-    <article class="review-card" data-motion-reveal>
-      <div class="review-top">
-        <div>
-          <h3>任任</h3>
-          <span>35歲・科技業主管</span>
+  <div class="student-review-list">
+    <article class="student-review-item">
+      <div class="student-profile">
+        <div class="student-avatar avatar-blue">
+          <img class="student-avatar-image" src="{{ url_for('static', filename='mmak.png') }}" alt="學員頭像 1">
         </div>
-        <strong>Teacher Eunice</strong>
+        <span class="student-badge">科技業主管</span>
       </div>
 
-      <p>
-        我本身是理工背景，技術和管理都算熟悉，但英文一直是升遷後最明顯的短板。
-        跟 Eunice 上課約 4 個月後，最大的改變是開會時不再只聽不說，
-        現在能用比較簡單但清楚的句子回應國外同事，也能準備基本報告內容。
-        Eunice 最吸引我的地方是她很會把複雜想法拆成可以直接開口的英文，
-        糾正也很精準但不會讓人緊張。推薦給專業能力夠、但英文表達卡住的上班族。
-      </p>
-    </article>
-
-    <article class="review-card review-card-highlight" data-motion-reveal>
-      <div class="review-top">
-        <div>
-          <h3>Lucas</h3>
-          <span>26歲・曾在澳洲打工</span>
+      <div class="student-review-main">
+        <h3>任任｜會議英文不再只會點頭，開始敢回應國外同事</h3>
+        <div class="student-review-meta">
+          <span>★ 5.0</span>
+          <span>上課 4 個月</span>
+          <span>Teacher Eunice</span>
         </div>
-        <strong>Teacher Jen</strong>
+        <p class="student-review-text">
+          我本身是理工背景，技術和管理都算熟悉，但英文一直是升遷後最明顯的短板。
+          跟 Eunice 上課後，最大的改變是開會時不再只聽不說，現在能用簡單但清楚的句子回應國外同事，也能準備基本報告內容。
+        </p>
+        <!-- 任任｜科技業主管 -->
+        <div class="student-tags" tabindex="0" role="region" aria-label="學員心得標籤，可左右滑動">
+          <span>#告別開會默默點頭</span>
+          <span>#聽懂也能接話</span>
+          <span>#明天就能用</span>
+        </div>
       </div>
 
-      <p>
-        我之前在澳洲打工過，很喜歡那邊的生活方式，所以一直希望未來能爭取工作簽再去闖一次。
-        跟 Jen 上課大約半年，目前主要用在面試準備、生活對話和工作情境溝通。
-        以前我常常只會用單字拼湊，講到一半就卡住；
-        現在比較能自然接話，也敢主動問問題。
-        Jen 的課很有活力，不會像傳統上課那麼有壓力，而且她很會鼓勵你多講。
-        推薦給想把英文變成出國機會的人。
-      </p>
+      <div class="student-review-side">
+        <div class="student-score">
+          <strong>敢開口</strong>
+          <span>從只聽不說到能表達重點</span>
+        </div>
+        <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約體驗</a>
+        <a class="btn-light" href="#contact">聯絡我們</a>
+      </div>
     </article>
 
-    <article class="review-card" data-motion-reveal>
-      <div class="review-top">
-        <div>
-          <h3>Turn</h3>
-          <span>30歲・傳產工程師</span>
+    <article class="student-review-item">
+      <div class="student-profile">
+        <div class="student-avatar avatar-orange">
+          <img class="student-avatar-image" src="{{ url_for('static', filename='review-avatar-2.png') }}" alt="學員頭像 2">
         </div>
-        <strong>Teacher Dana</strong>
+        <span class="student-badge">出國面試</span>
       </div>
 
-      <p>
-        我學英文不是為了考試，而是單純想培養興趣。
-        因為有旅美親戚常分享國外生活，讓我開始想聽懂更多文化和日常對話。
-        跟 Dana 上課約 5 個月後，現在能用英文聊旅遊、生活習慣和一些工作小事。
-        以前聽到英文會先緊張，現在比較願意慢慢表達。
-        Dana 最棒的是她很親切，會順著我的興趣延伸話題，讓上課像聊天一樣自然。
-        推薦給想輕鬆開始、不想被壓力嚇跑的人。
-      </p>
+      <div class="student-review-main">
+        <h3>Lucas｜從單字拼湊到能自然接話，面試準備更有方向</h3>
+        <div class="student-review-meta">
+          <span>★ 5.0</span>
+          <span>上課半年</span>
+          <span>Teacher Jen</span>
+        </div>
+        <p class="student-review-text">
+          我之前在澳洲打工過，希望未來能再爭取工作機會。跟 Jen 上課主要練面試準備、生活對話和工作情境溝通。
+          以前常常講到一半就卡住，現在比較能自然接話，也敢主動問問題。
+        </p>
+        <div class="student-tags" tabindex="0" role="region" aria-label="學員心得標籤，可左右滑動">
+          <span>#告別句型卡關</span>
+          <span>#生活感對話</span>
+          <span>#跨出第一步</span>
+        </div>
+      </div>
+
+      <div class="student-review-side">
+        <div class="student-score">
+          <strong>更流暢</strong>
+          <span>從卡詞到能延伸話題</span>
+        </div>
+        <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約體驗</a>
+        <a class="btn-light" href="#level-test">程度測試</a>
+      </div>
     </article>
 
+    <article class="student-review-item">
+      <div class="student-profile">
+        <div class="student-avatar avatar-green">
+          <img class="student-avatar-image" src="{{ url_for('static', filename='review-avatar-3.jpg') }}" alt="學員頭像 3">
+        </div>
+        <span class="student-badge">興趣學習</span>
+      </div>
+
+      <div class="student-review-main">
+        <h3>Turn｜把英文變成聊天工具，聽到英文不再先緊張</h3>
+        <div class="student-review-meta">
+          <span>★ 5.0</span>
+          <span>上課 5 個月</span>
+          <span>Teacher Dana</span>
+        </div>
+        <p class="student-review-text">
+          我學英文不是為了考試，而是想培養興趣。跟 Dana 上課後，現在能用英文聊旅遊、生活習慣和一些工作小事。
+          以前聽到英文會先緊張，現在比較願意慢慢表達，上課像聊天一樣自然。
+        </p>
+        <div class="student-tags" tabindex="0" role="region" aria-label="學員心得標籤，可左右滑動">
+          <span>#無痛開口</span>
+          <span>#像和朋友聊天</span>
+          <span>#下班放鬆聊</span>
+        </div>
+      </div>
+
+      <div class="student-review-side">
+        <div class="student-score">
+          <strong>更自然</strong>
+          <span>從害怕英文到願意慢慢說</span>
+        </div>
+        <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約體驗</a>
+        <a class="btn-light" href="#faq">查看 FAQ</a>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="section" id="test-result-offer">
+  <div class="test-result-offer">
+    <span class="offer-label">測驗完成後推薦</span>
+    <h2>想知道怎麼突破目前的盲點嗎？</h2>
+    <p>
+      立即預約 25 分鐘一對一外師體驗課，特價 $100，
+      讓老師為你客製化學習建議。
+    </p>
+    <p>
+      好康加碼：體驗後填寫心得，再拿 $100 元正式課程折價券。
+    </p>
+    <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">
+      預約 $100 體驗課
+    </a>
   </div>
 </section>
 
-<section class="section faq">
+<section id="faq" class="section faq">
   <h2>常見問題</h2>
-  <details><summary>1.購買課程有使用期限嗎？</summary><p>A:不同課程方案採用不同請假次數制度</p></details>
-  <details><summary>2.購買課程付款方式？</summary><p>A:僅限匯款</p></details>
-  <details><summary>3.用什麼平台上課？</summary><p>A:使用Zoom軟體上課？</p></details>
-  <details><summary>4.如何預約試上？</summary><p>IG連結私訊小編立即安排試上</p></details>
+
+  <h3 class="faq-category">🍀 課程相關</h3>
+  <details>
+    <summary>1. JenTalk English 是一對一上課嗎？</summary>
+    <p>是的，JenTalk English 採線上一對一教學。老師會依照學生的英文程度、學習需求與目標調整課程，讓每位學生都有充分開口練習英文的機會。</p>
+  </details>
+  <details>
+    <summary>2. 一堂課多久？</summary>
+    <p>正式課程分為 50 分鐘及 25 分鐘兩種，學生可以自由選擇。50 分鐘課程有充足時間進行英文對話、教材學習、口說練習及老師回饋；25 分鐘課程則適合兒童，以及偏好每週安排多堂短時間課程的學生。</p>
+  </details>
+  <details>
+    <summary>3. 有提供試上課程嗎？</summary>
+    <p>有的！我們提供 25 分鐘一對一視訊試上課程，您可以清楚看見授課老師，實際體驗老師的教學方式後，再決定是否購買正式課程。</p>
+  </details>
+  <details>
+    <summary>4. 完全不會英文也可以上課嗎？</summary>
+    <p>可以！即使是英文零基礎或初學者，也很適合一對一課程。老師會依照您的程度調整說話速度、使用的單字及課程難度，不需要擔心跟不上。</p>
+  </details>
+  <details>
+    <summary>5. 上課使用什麼軟體？</summary>
+    <p>課程使用 Zoom 軟體進行，Zoom 可免費下載，不需支付額外費用。您只需要準備電腦、平板或手機，以及穩定的網路即可上課。如不想開啟鏡頭，也可以選擇語音課程。</p>
+  </details>
+  <details>
+    <summary>6. 上課需要自己準備教材嗎？</summary>
+    <p>一般情況下不需要。我們會依照課程內容及學生程度安排適合的學習教材。如果您有自己的教材、考試資料或特別希望練習的內容，也可以提前提出。</p>
+  </details>
+  <details>
+    <summary>7. 有哪些課程可以選擇？可以指定自己想學的內容嗎？</summary>
+    <p>我們提供日常英文、英文會話、口說訓練、旅遊英文、文法訓練、商務英文及 TOEIC 等不同課程。您可以依照自己的需求選擇並告知授課老師，也可隨時更換課程教材。</p>
+  </details>
+  <details>
+    <summary>8. 一週建議上幾堂課？</summary>
+    <p>本機構課程採每週固定時段上課。如果希望提升英文口說能力並建立穩定的英文學習習慣，通常建議每週安排 1～3 堂課。不過每個人的時間與學習目標不同，可以依照自己的生活安排，決定適合的上課頻率。</p>
+  </details>
+  <details>
+    <summary>9. 視訊課程與語音課程差在哪裡？</summary>
+    <p>視訊課程會開啟鏡頭，能夠清楚看見授課老師，適合初學者觀察老師的發音口型，也有助於更專注地參與課程。語音課程則不開啟鏡頭，畫面上僅顯示上課筆記與教材。</p>
+  </details>
+
+  <h3 class="faq-category">🍀 師資相關</h3>
+  <details>
+    <summary>1. 老師都是外籍老師嗎？老師會中文嗎？</summary>
+    <p>JenTalk English 主要由經過篩選的菲律賓外籍教師授課。每位教師皆具多年教學經驗，並通過嚴格的教學系統考核；我們重視老師是否能專業引導學生，並明確指出學生的學習問題。</p>
+    <p>老師採全英文授課，不使用中文，讓學生能同時有效訓練聽力與口說能力。初學者也可以先體驗試上課程，在專業師資的引導下，零基礎也不必擔心。</p>
+  </details>
+  <details>
+    <summary>2. 可以自己選老師嗎？</summary>
+    <p>試上課程會由機構依照您的學習需求，協助配對適合的老師。</p>
+  </details>
+  <details>
+    <summary>3. 每次上課都是同一位老師嗎？</summary>
+    <p>是的，正式課程會固定由同一位老師授課。除了能建立長期的學習默契，老師也能清楚掌握學生的程度、學習問題及進度。</p>
+  </details>
+  <details>
+    <summary>4. 購買課程後可以更換老師嗎？</summary>
+    <p>不行。由於正式購課前已提供試上課程，購買正式課程後，將由試上課程的老師繼續授課。</p>
+  </details>
+
+  <h3 class="faq-category">🍀 費用相關</h3>
+  <details>
+    <summary>1. 課程費用怎麼計算？</summary>
+    <p>JenTalk English 提供不同堂數與課程時長的方案，各方案皆有相對應的價格及優惠。您可以先體驗試上課程，再依照自己的學習需求及預計上課頻率，選擇適合的方案。詳細課程費用可私訊 Instagram（IG）詢問。</p>
+  </details>
+  <details>
+    <summary>2. 可以使用哪些方式付款？</summary>
+    <p>目前僅提供匯款或銀行轉帳。確認購買的課程方案後，我們會提供付款資訊。</p>
+  </details>
+  <details>
+    <summary>3. 課程可以轉讓給別人嗎？</summary>
+    <p>可以。轉讓課程不需支付手續費，但必須與新學生完成課程交接，並提供新學生完整的聯絡資訊。若已告知需要轉讓課程，卻未確實完成交接，課程堂數仍會依原定安排繼續扣除。</p>
+  </details>
+  <details>
+    <summary>4. 購買課程後可以退費嗎？</summary>
+    <p>正式課程購買後，將依照 JenTalk English 的退費規定進行處理。建議購課前先確認課程方案及相關規定，如有任何疑問，也可以先詢問客服。</p>
+  </details>
+  <details>
+    <summary>5. 購買的課程有使用期限嗎？</summary>
+    <p>沒有。本機構課程採每週固定時段上課，並設有請假次數限制。若超過請假次數，之後的缺席將直接從課程總堂數中扣除。購課前，我們會清楚說明方案的使用方式。</p>
+  </details>
+
+  <h3 class="faq-category">🍀 請假相關</h3>
+  <details>
+    <summary>1. 課程如何請假？</summary>
+    <p>本機構課程採每週固定時段上課。學生可依所購買的課程方案享有相對應的請假次數；一旦請假次數用完，之後的缺席將直接從課程總堂數中扣除。詳細請假次數會依學生購買的方案另行告知。</p>
+  </details>
+  <details>
+    <summary>2. 最晚需要在多久前請假？</summary>
+    <p>若學生需要請假，須至少於上課前 30 分鐘通知老師。若未提前通知，該堂課將視為已上課，並計入付費堂數。</p>
+  </details>
+  <details>
+    <summary>3. 上課時遇到網路連線問題怎麼辦？</summary>
+    <p>若因老師或學生任一方的網路連線不穩而影響課程進行，可安排補課。補課時間僅能在老師與學生雙方同意的情況下重新安排。</p>
+  </details>
+  <details>
+    <summary>4. 如果有補課，還會計入請假次數嗎？</summary>
+    <p>若課程於當週完成調課，或另外安排時間補課，視同當週有上課，不會計入請假次數。</p>
+  </details>
 </section>
 
 
@@ -194,9 +2792,9 @@
   <div class="bottom-inner">
     <div>
       <h3>想在 30 天內明顯變敢講？</h3>
-      <p>先試聽一堂，讓老師幫你抓出最卡的口說點。</p>
+      <p>先用 $100 體驗 25 分鐘一對一外師課，讓老師幫你抓出最卡的口說點。</p>
     </div>
-    <a class="btn-primary" href="{{ url_for('booking.trial_form') }}">預約試聽</a>
+    <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrwT-frKhrpsLVl9GldwD_SqGHo7l92VehhxpIK7OHl01g/viewform">預約 $100 體驗課</a>
   </div>
 </section>
 
@@ -208,15 +2806,17 @@
   <div class="cards">
     <div class="card">
       <div class="k">Instagram</div>
-      <div class="d">@jentalk.english</div>
+      <a class="ig-link" href="https://www.instagram.com/jentalkenglish/" target="_blank" rel="noopener">加入Instagram官方</a>
+
+
     </div>
     <div class="card">
       <div class="k">LINE</div>
-      <div class="d">@jentalk</div>
+      <a class="line-link" href="https://line.me/R/ti/p/@645gbxbw" target="_blank" rel="noopener">加入 LINE 官方</a>
     </div>
     <div class="card">
       <div class="k">Email</div>
-      <div class="d">hello@jentalk.com</div>
+      <div class="d">jentalkenglish@gmail.com</div>
     </div>
   </div>
 </section>
@@ -231,4 +2831,118 @@
   <p>前往 IG 作品集，看看 JenTalk English 的短影音、學習貼文與課程活動。</p>
   <a href="{{ url_for('main.instagram') }}">查看 IG 作品集</a>
 </section>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mobileQuery = window.matchMedia("(max-width: 900px)");
+
+    function setupReviewToggles() {
+      document.querySelectorAll(".student-review-text").forEach(function (text) {
+        let toggle = text.nextElementSibling;
+
+        if (!toggle || !toggle.classList.contains("review-toggle")) {
+          toggle = document.createElement("button");
+          toggle.type = "button";
+          toggle.className = "review-toggle";
+          toggle.textContent = "展開全文";
+          text.insertAdjacentElement("afterend", toggle);
+
+          toggle.addEventListener("click", function () {
+            const isExpanded = text.classList.toggle("is-expanded");
+            toggle.textContent = isExpanded ? "收合" : "展開全文";
+          });
+        }
+
+        if (!mobileQuery.matches) {
+          text.classList.remove("is-expanded");
+          toggle.classList.add("is-hidden");
+          toggle.textContent = "展開全文";
+          return;
+        }
+
+        text.classList.remove("is-expanded");
+        toggle.classList.remove("is-hidden");
+
+        const lineHeight = parseFloat(window.getComputedStyle(text).lineHeight);
+        const maxHeight = lineHeight * 3;
+        const needsToggle = text.scrollHeight > maxHeight + 4;
+
+        if (!needsToggle) {
+          toggle.classList.add("is-hidden");
+        }
+      });
+    }
+
+    setupReviewToggles();
+    window.addEventListener("resize", setupReviewToggles);
+  });
+
+    function setupTeacherCarousel() {
+      document.querySelectorAll("[data-teacher-carousel]").forEach(function (carousel) {
+        const slides = Array.from(carousel.querySelectorAll("[data-teacher-slide]"));
+        const dots = Array.from(carousel.parentElement.querySelectorAll("[data-teacher-dot]"));
+        const previous = carousel.querySelector("[data-teacher-prev]");
+        const next = carousel.querySelector("[data-teacher-next]");
+        const status = carousel.parentElement.querySelector("[data-teacher-status]");
+        let current = 0;
+        if (!slides.length) return;
+        function showSlide(index) {
+          current = (index + slides.length) % slides.length;
+          slides.forEach(function (slide, slideIndex) {
+            const isActive = slideIndex === current;
+            slide.classList.toggle("is-active", isActive);
+            slide.hidden = !isActive;
+            slide.setAttribute("aria-hidden", String(!isActive));
+          });
+          dots.forEach(function (dot, dotIndex) {
+            const isActive = dotIndex === current;
+            dot.classList.toggle("is-active", isActive);
+            dot.setAttribute("aria-selected", String(isActive));
+            dot.tabIndex = isActive ? 0 : -1;
+          });
+          if (status) status.textContent = "第 " + (current + 1) + " / " + slides.length + " 位";
+        }
+        if (previous) previous.addEventListener("click", function () { showSlide(current - 1); });
+        if (next) next.addEventListener("click", function () { showSlide(current + 1); });
+        dots.forEach(function (dot, dotIndex) { dot.addEventListener("click", function () { showSlide(dotIndex); }); });
+        showSlide(0);
+      });
+    }
+
+    function setupTestCarousel() {
+      document.querySelectorAll("[data-test-carousel]").forEach(function (carousel) {
+        const slides = Array.from(carousel.querySelectorAll("[data-test-slide]"));
+        const dots = Array.from(carousel.querySelectorAll("[data-test-dot]"));
+        const previous = carousel.querySelector("[data-test-prev]");
+        const next = carousel.querySelector("[data-test-next]");
+        const status = carousel.querySelector("[data-test-status]");
+        let current = 0;
+        if (!slides.length) return;
+        function showSlide(index) {
+          current = (index + slides.length) % slides.length;
+          slides.forEach(function (slide, slideIndex) {
+            const isActive = slideIndex === current;
+            slide.classList.toggle("is-active", isActive);
+            slide.hidden = !isActive;
+            slide.setAttribute("aria-hidden", String(!isActive));
+          });
+          dots.forEach(function (dot, dotIndex) {
+            const isActive = dotIndex === current;
+            dot.classList.toggle("is-active", isActive);
+            dot.setAttribute("aria-selected", String(isActive));
+          });
+          if (status) status.textContent = "第 " + (current + 1) + " 步 / " + slides.length + " 步";
+        }
+        if (previous) previous.onclick = function () { showSlide(current - 1); };
+        dots.forEach(function (dot, dotIndex) { dot.addEventListener("click", function () { showSlide(dotIndex); }); });
+        showSlide(0);
+      });
+    }
+
+    setupTeacherCarousel();
+    setupTestCarousel();
+</script>
+
+
 {% endblock %}

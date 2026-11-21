@@ -22,6 +22,6 @@
 
 已安裝 Web Animation Skills 的 60fps-animation、accessible-animation、ascii-animation、glassmorphism、gsap-web、lottie-animation、micro-interaction、page-transition-animation、svg-animation。技能套件採 MIT 授權。選用原生 CSS 與 JavaScript，進場、互動和降階方案可由 Flask 靜態檔提供，PythonAnywhere 不需 Node。
 
-## 分支基準
+## 分支基準與資源
 
-此分支以 GitHub 上的 Flask／Jinja 品牌站原始碼為基準。正式站後續更新需在部署前併入，包含首頁合照、輪播、手機導覽和 Google 表單連結。每日英文獨立站位於 `kevinooll/daily-english-test`。
+首頁與共用導覽取自工作區保留的新版範本，再套入合照 v6、Google 表單、首屏版型與共用動效。分支提供在既有 PythonAnywhere 站點上驗收的範本和動效檔案。現有站點的 `app/static` 需保留，包含合照、輪播圖片、學員頭像和兩支教師介紹影片。分支不含這些既有媒體的再上傳副本。正式環境採原有 Flask 靜態檔路徑。此次沒有執行部署。
